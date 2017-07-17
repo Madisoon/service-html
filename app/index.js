@@ -5,10 +5,7 @@ define(function (require, exports, module) {
 
     // 通过 require 引入依赖
     /*    require('../spm_modules/jquery/jquery-3.1.1.min');*/
-
-    /*var api = require('../static/common/api');*/
     //二级模块
-
 
     var sysInfo = JSON.parse(localStorage.getItem('sysInfo'));
     var sysUser = JSON.parse(localStorage.getItem('sysUser'));

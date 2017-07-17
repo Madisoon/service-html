@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <title>上元信-舆情管理平台</title>
+<!--    <style>
+        #role-manage-html {
+            margin-top: 10px;
+            height: 100%;
+            overflow-y: auto;
+            width: 98%;
+            height: 100%;
+            margin-left: 1%;
+        }
+
+        .main-context-left {
+            float: left;
+            width: 19%;
+            height: 100%;
+        }
+
+        .main-context-right {
+            float: left;
+            width: 79%;
+            height: 100%;
+            margin-left: 2%;
+        }
+
+        #add-role {
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        .title {
+            padding: 6px 0px 6px 0px;
+        }
+
+        .main-context-right .span-label {
+            margin-top: 8px;
+        }
+
+        .first_menu_show {
+            font-size: 1.1rem;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: -4px;
+        }
+
+        .main-context-left .list-group-item {
+            cursor: pointer;
+        }
+
+        .main-context-left .list-group-item.activeli {
+            background-color: #f8f6f2;
+        }
+
+        .main-context-left .list-group {
+            margin-top: 10px;
+        }
+
+        .main-context-left .list-group .list-group-item span {
+            margin-left: 10%;
+            float: right;
+        }
+
+        .module-context {
+            margin-top: 10px;
+        }
+
+        .module-context .form-control {
+            width: 90%;
+        }
+
+        .module-context .form-control,
+        .module-context .operationicon {
+            float: left;
+        }
+
+        .module-context .operationicon {
+            float: right;
+            margin-top: 2%;
+        }
+
+        #post-role {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #open-update-dialog {
+            float: right;
+        }
+    </style>-->
+</head>
+<body>
+<header>
+
+</header>
+<div id="role-manage-html">
+    <div class="main-context-left">
+        <button type="button" class="btn btn-primary " id="add-role"><span
+                class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;添 加 角 色
+        </button>
+        <ul class="list-group">
+
+        </ul>
+    </div>
+    <div class="main-context-right">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">基 础 信 息 展 示</div>
+            <div class="panel-body">
+                <span class="user-number">属于本角色的共有<strong>2</strong>人</span>
+                <button type="button" class="btn btn-primary " id="open-update-dialog">&nbsp;&nbsp;修改名称
+                </button>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">权 限 管 理</div>
+            <div class="panel-body purview-show">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="add-role-ialog" class="dialog-width" style="display: none">
+        <div class="context">
+            <div class="module-context">
+                <input type="text" class="form-control role-name" placeholder="角色名称">
+                <div class="operationicon"><span
+                        class="glyphicon glyphicon-plus span-icon span-icon-cursor span-blue"></span></div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+
+        <!--<button type="button" class="btn btn-primary center-button" id="post-role"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-post-role">取消</button>
+            <button type="button" class="btn btn-primary" id="post-role">确认提交</button>
+        </div>
+    </div>
+    <div id="update-role-dialog" class="dialog-width" style="display: none">
+        <div class="form-group">
+            <input type="text" class="form-control" id="update-role-name" placeholder="角色名称">
+        </div>
+        <!--<button type="button" class="btn btn-primary center-button" id="update-role"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-update-role">取消</button>
+            <button type="button" class="btn btn-primary" id="update-role">确认提交</button>
+        </div>
+    </div>
+</div>
+<div style="clear:both;"></div>
+<script>
+    seajs.use('./rolemanage');
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title>上元信-舆情管理平台</title>
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <!--<style>
+        header {
+            margin-top: 10px;
+            margin-right: 2%;
+        }
+
+        header #add-dep {
+            float: right;
+            width: 130px;
+            height: 32px;
+        }
+
+        .single-member-card {
+            width: 17.6%;
+            height: 140px;
+            margin-left: 2%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f6f2;
+
+        }
+
+        .single-member-card .card-info h5 {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .dep-card {
+            float: left;
+        }
+
+        .dep-card .card-info {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .card-touch span {
+            cursor: pointer;
+            margin-left: 16%;
+        }
+
+        .add-dep-form {
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 10px;
+        }
+
+        .look-dep-user {
+            width: 93%;
+            margin-left: 3.5%;
+            margin-top: 10px;
+        }
+
+        .look-dep-user .dep-user-show {
+            margin-left: 10px;
+            margin-top: 8px;
+        }
+    </style>-->
+</head>
+<body>
+<div id="dep-manage-html">
+    <header>
+        <button class="btn btn-primary" id="add-dep" type="button">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;添 加 部 门
+        </button>
+    </header>
+    <div style="clear: both"></div>
+    <div class="main-context">
+
+    </div>
+    <div class="add-dep-form" style="display:none">
+        <form role="form">
+            <div class="form-group">
+                <label>部门名称:</label>
+                <input type="text" class="form-control" id="dep-name" placeholder="填 写 部 门 名 称">
+            </div>
+            <div class="form-group">
+                <label>部门编号:</label><input type="text" class="form-control" id="dep-no" placeholder="填 写 部 门 编 号">
+            </div>
+        </form>
+        <!--<button type="button" class="btn btn-primary center-button" id="post-dep"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-dep">取消</button>
+            <button type="button" class="btn btn-primary" id="post-dep">确认提交</button>
+        </div>
+    </div>
+    <div class="look-dep-user" style="display:none">
+        <h5 class="people_number">本部门一共:&nbsp;&nbsp;<label></label>&nbsp;&nbsp;人</h5>
+        <hr>
+
+    </div>
+</div>
+
+<script>
+    seajs.use('./depmanage');
+</script>
+</body>
+</html>

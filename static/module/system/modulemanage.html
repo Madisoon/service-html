@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+<!--    <style>
+
+        #module-manage-html {
+            width: 98%;
+            height: 100%;
+            margin-left: 1%;
+            margin-top: 10px;
+        }
+
+        .first-main-html {
+            width: 19%;
+            float: left;
+            height: 100%;
+        }
+
+        .first-main-html .list-group {
+            margin-top: 10px;
+        }
+
+        .first-main-html .list-group .list-group-item span {
+            margin-left: 10%;
+            float: right;
+        }
+
+        .second-main-html {
+            margin-left: 2%;
+            width: 79%;
+            float: left;
+            height: 100%;
+        }
+
+        .second-main-html td, .second-main-html th {
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .second-main-html .segment {
+            margin: 0;
+            padding-left: 0;
+            padding-right: 0;
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+            padding: 0.4em;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(34, 36, 38, .15);
+        }
+
+        #add-first-module {
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        .module-context {
+            margin-top: 10px;
+        }
+
+        .module-context .form-control {
+            width: 90%;
+        }
+
+        .module-context .form-control,
+        .module-context .operationicon {
+            float: left;
+        }
+
+        .module-context .operationicon {
+            float: right;
+            margin-top: 2%;
+        }
+
+        .first-main-html .list-group-item {
+            cursor: pointer;
+        }
+
+        .first-main-html .list-group-item.activeli {
+            background-color: #f8f6f2;
+        }
+
+        .second-main-html .table {
+            margin-top: 10px;
+        }
+
+        #add-second-module {
+            float: right;
+        }
+
+        #add-second-module-ialog .module-context .form-control {
+            width: 30%;
+        }
+
+        #add-second-module-ialog .module-context .form-control.second-input {
+            width: 63%;
+            margin-left: 2%;
+        }
+
+        #add-second-module-ialog .module-context .operationicon {
+            float: right;
+            margin-top: 1%;
+        }
+
+        #update-second-module-dialog {
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        #update-second-module-dialog .form-group label {
+            font-weight: 500;
+            font-size: .9rem;
+            color: rgba(0, 0, 0, .5);
+        }
+    </style>-->
+</head>
+<body>
+<div id="module-manage-html">
+    <div class="first-main-html">
+        <button type="button" class="btn btn-primary" id="add-first-module"><span
+                class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;添 加 一 级 菜 单
+        </button>
+        <ul class="list-group">
+
+        </ul>
+    </div>
+    <div class="second-main-html">
+        <button type="button" class="btn btn-success" id="add-second-module"><span
+                class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;添 加 二 级 菜 单
+        </button>
+        <div style="clear: both"></div>
+        <table class="table  table-bordered">
+            <thead>
+            <tr class="active">
+                <th>名称</th>
+                <th>地址</th>
+                <th>删除</th>
+                <th>修改</th>
+            </tr>
+            </thead>
+            <tbody class="module-info-show-table">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="add-first-module-ialog" class="dialog-width" style="display: none">
+        <div class="context">
+            <div class="module-context">
+                <input type="text" class="form-control module-name" placeholder="模块名称">
+                <div class="operationicon"><span
+                        class="glyphicon glyphicon-plus span-icon span-icon-cursor span-blue fix"></span></div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+
+        <!--<button type="button" class="btn btn-primary center-button" id="post-module"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-module">取消</button>
+            <button type="button" class="btn btn-primary" id="post-module">确认提交</button>
+        </div>
+    </div>
+    <div id="add-second-module-ialog" class="dialog-width" style="display: none">
+        <div class="context">
+            <div class="module-context">
+                <input type="text" class="form-control second-module-name" placeholder="模块名称">
+                <input type="text" class="form-control second-module-url second-input" placeholder="模块地址配置">
+                <div class="operationicon"><span
+                        class="glyphicon glyphicon-plus span-icon span-icon-cursor span-blue second-fix"></span></div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+
+        <!--<button type="button" class="btn btn-primary center-button" id="post-second-module"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-second-btn">取消</button>
+            <button type="button" class="btn btn-primary" id="post-second-module">确认提交</button>
+        </div>
+    </div>
+
+    <div id="update-first-module-dialog" class="dialog-width" style="display: none">
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="update-first-name" placeholder="名称">
+        </div>
+        <!--<button type="button" class="btn btn-primary center-button" id="update-first-module"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-first-module">取消</button>
+            <button type="button" class="btn btn-primary" id="update-first-module">确认提交</button>
+        </div>
+    </div>
+
+    <div id="update-second-module-dialog" class="dialog-width" style="display: none">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">二级模块名称：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="update-second-name" placeholder="二级模块名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">二级模块地址：</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="update-second-url" placeholder="二级模块地址">
+                </div>
+            </div>
+        </form>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-second-module">取消</button>
+            <button type="button" class="btn btn-primary" id="update-second-module">确认提交</button>
+        </div>
+        <!--<button type="button" class="btn btn-primary center-button" id="update-second-module"><span
+                class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;提交
+        </button>-->
+    </div>
+
+</div>
+<div style="clear: both"></div>
+
+<script>
+    seajs.use('./modulemanage');
+</script>
+</body>
+</html>

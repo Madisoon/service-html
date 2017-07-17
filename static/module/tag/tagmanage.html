@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.exedit.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+<!--    <style>
+        #tag-manage-html {
+            padding: 8px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        #rMenu {
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+            background-color: white;
+            text-align: center;
+            padding: 2px;
+        }
+
+        #rMenu ul {
+            -webkit-padding-start: 0px;
+            width: 130px;
+            padding: 2px 4px;
+            box-shadow: 0 2px 4px 0 rgba(34, 36, 38, .12), 0 2px 10px 0 rgba(34, 36, 38, .15);
+        }
+
+        #rMenu ul li {
+            margin: 1px 0;
+            height: 35px;
+            line-height: 35px;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.8);
+            list-style: none outside none;
+            border-bottom: 1px solid #f8f6f2;
+        }
+
+        #rMenu ul li:hover {
+            background: #2299ee;
+            color: #fff;
+        }
+
+        .ztree li {
+            margin-top: 8px;
+        }
+
+        .ztree * {
+            font-family: '微软雅黑';
+            font-size: 1.1rem;
+        }
+
+        .ztree li a.curSelectedNode {
+            background: #5cb85c;
+            height: 19px;
+            border: 0px #FFB951 solid;
+        }
+
+        a:hover {
+            text-decoration: none !important;
+            background: #5cb85c !important;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        p {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        #treeDemo {
+            padding-left: 44%;
+        }
+    </style>-->
+</head>
+<body>
+<div id="tag-manage-html">
+    <h3>标签树管理</h3>
+    <p>简介:服务平台标签树,右键操作实现增删改查</p>
+    <div class="content_wrap">
+        <div class="zTreeDemoBackground left">
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
+    </div>
+    <div id="rMenu">
+        <ul>
+            <li id="update-name"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;修改名称</li>
+            <li id="add-tag"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;增加节点</li>
+            <li id="delete-tag"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;删除节点
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    seajs.use('./tagmanage.js');
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="user-tag-html">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">我的标签</h3>
+        </div>
+        <div class="panel-body my-tag">
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">标签树</h3>
+        </div>
+        <div class="panel-body">
+            <ul id="tag-tree" class="ztree"></ul>
+        </div>
+    </div>
+</div>
+<script>
+    seajs.use('./usertag.js');
+</script>
+</body>
+</html>

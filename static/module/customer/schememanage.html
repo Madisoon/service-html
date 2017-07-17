@@ -1,0 +1,247 @@
+<!--方案管理-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/datepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.exedit.min.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+</head>
+<!--<style>
+    #scheme-manage-html {
+        display: flex;
+        width: 98%;
+        height: 100%;
+        padding: 8px;
+    }
+
+     .left-content {
+        flex: 1 1 14%;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+     .right-content {
+        height: 100%;
+        flex: 1 1 86%;
+    }
+
+    #table-show {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .operation-head {
+        margin-bottom: -4%;
+    }
+
+    #scheme-tag-show .scheme-tag {
+        margin-left: 1%;
+        margin-top: 8px;
+    }
+
+    #scheme-tag-show {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .scheme-choose-input {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .scheme-choose-input .form-group {
+        flex: 1 1 12%;
+        margin-left: 1%;
+        margin-bottom: 10px;
+    }
+
+    .form-group.first {
+        margin-left: 0%;
+    }
+
+    .relative-dialog-action {
+        margin-bottom: 10px;
+        float: right;
+    }
+
+</style>-->
+<body>
+<div id="scheme-manage-html">
+    <div class="left-content">
+        <div>
+            <ul id="area-tree" class="ztree"></ul>
+        </div>
+    </div>
+    <div class="right-content">
+        <div class="scheme-choose-input" style="display: none">
+            <div class="form-group first">
+                <input type="text" class="form-control scheme-choose-name" placeholder="方案名称">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control scheme-choose-tag" placeholder="标签">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control scheme-choose-imp" placeholder="匹配关键词">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control scheme-choose-no-imp" placeholder="排除关键词">
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="scheme-choose-grade">
+                    <option value="">请选择</option>
+                    <option value="1">1级</option>
+                    <option value="2">2级</option>
+                    <option value="3">3级</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="scheme-choose-plan">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control choose-creater" placeholder="创建人">
+            </div>
+        </div>
+        <div class="operation-head">
+            <button type="button" class="btn btn-primary" id="add-scheme">新建方案</button>
+            <button type="button" class="btn btn-success" id="delete-scheme">删除方案</button>
+            <button type="button" class="btn btn-danger" id="choose-scheme">筛选方案栏</button>
+            <button type="button" class="btn btn-warning" id="choose-scheme-sure">筛选方案</button>
+        </div>
+        <div class="table" id="table-show">
+            <table class="table table-condensed" id="all-scheme-table"></table>
+        </div>
+    </div>
+    <div id="scheme-add-dialog" class="dialog-context-width" style="display: none">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">方案名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="scheme-name" placeholder="方案名称">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标签&nbsp;&nbsp;<span
+                        class="glyphicon span-red span-icon-cursor glyphicon-plus" id="add-scheme-tag"></span></label>
+                <div class="col-sm-10" id="scheme-tag-show">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">匹配关键词</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="scheme-imp" placeholder="匹配关键词"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排除关键词</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="2" id="scheme-no-imp" placeholder="排除关键词"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">匹配地址</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="scheme-link" placeholder="匹配地址"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排除地址</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="2" id="scheme-no-link" placeholder="排除地址"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">信息级别</label>
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="scheme-grade" value="1" checked="checked"> 1级
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="scheme-grade" value="2" checked="checked"> 2级
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="scheme-grade" value="3" checked="checked"> 3级
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">计划任务</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="plan-select">
+                        <option value="">请选择计划任务</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">计划外时间是否发送</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" class="scheme-status" name="scheme-status" value="1" checked="checked"> 是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="scheme-status" name="scheme-status" value="0"> 否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">累积消息发送时间</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="scheme-interval" placeholder="秒">
+                </div>
+                <label class="col-sm-2 control-label">（单位秒）</label>
+            </div>
+        </form>
+        <div class="relative-dialog-action">
+            <button type="button" class="btn btn-success" id="scheme-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="scheme-post-btn" disabled="disabled">确认提交</button>
+        </div>
+    </div>
+
+    <div id="scheme-tag-dialog" class="dialog-context-width" style="display:  none">
+        <div>
+            <ul id="tag-tree" class="ztree"></ul>
+        </div>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="add-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="add-tag-btn">确认提交</button>
+        </div>
+    </div>
+
+    <div id="choose-scheme-tag-dialog" class="dialog-context-width" style="display:  none">
+        <div>
+            <ul id="choose-tag-tree" class="ztree"></ul>
+        </div>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="choose-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="choose-tag-btn">确认提交</button>
+        </div>
+    </div>
+</div>
+<script>
+    seajs.use('./schememanage');
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/datepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../common/field/areafieldshow.js"></script>
+    <script src="../../common/field/assemblyadd.js"></script>
+    <script src="../../common/field/fieldshow.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <!--<style>
+
+        #defined-field-html {
+            margin-top: 10px;
+            width: 98%;
+            margin-left: 1%;
+        }
+
+        .assembly-group button {
+            margin: 10px;
+        }
+
+        .assembly-group .btn-default:hover,
+        .btn-default:focus, .btn-default.focus,
+        .btn-default:active, .btn-default.active,
+        .open > .dropdown-toggle.btn-default {
+            color: #428bca;
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .assembly {
+            padding-top: 10px;
+            background-color: #f8f6f2;
+        }
+
+        .assembly-title {
+            color: rgba(0, 0, 0, 0.4);
+            margin-left: 10px;
+        }
+
+        .field-setting {
+            position: fixed;
+            height: 81%;
+            max-height: 81%;
+            overflow-y: auto;
+            top: 19%;
+            right: 1%;
+            z-index: 2;
+            overflow: auto;
+            white-space: nowrap;
+            padding: 16px 26px 16px 16px;
+            background: #fff;
+            box-shadow: -4px 0 10px 0 rgba(0, 0, 0, 0.2);
+            border-left: 1px solid #eee;
+            width: 40%;
+            min-width: 430px;
+        }
+
+        .field-setting .title {
+            font-size: 1.1rem;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .field-setting .title span {
+            float: right;
+        }
+
+        .form-horizontal {
+            width: 50%;
+            margin-left: 15px;
+            margin-top: 10px;
+        }
+
+        .form-horizontal label {
+            font-weight: 500;
+            font-size: .9rem;
+        }
+
+        .field-setting .form-group label {
+            font-weight: 500;
+            font-size: .9rem;
+            color: rgba(0, 0, 0, .7);
+        }
+
+        .field-setting .checkbox .label, .field-setting .checkbox label {
+            font-weight: 500;
+            font-size: .9rem;
+            color: rgba(0, 0, 0, .7);
+        }
+
+        .field-setting .form-group label,
+        .form-horizontal .col-sm-2,
+        .form-horizontal .col-sm-10 {
+            padding-left: 0px;
+        }
+
+        .title-head {
+            padding-left: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            border-left: 3px solid #e0e0e0;
+        }
+
+        .field-setting-context {
+            margin-top: 10px;
+        }
+
+        .field-setting-context .form-group .field-value .form-control {
+            width: 75%;
+            float: left;
+            margin-top: 5px;
+        }
+
+        .field-setting-context .form-group .field-value span {
+            float: left;
+            margin-left: 10px;
+            margin-top: 13px;
+        }
+
+        .field-setting .action {
+            position: fixed;
+            right: 13%;
+            bottom: 8px;
+        }
+
+        .form-horizontal .form-group {
+            margin-right: -15px;
+            margin-left: -15px;
+            padding: 7px;
+            cursor: pointer;
+        }
+
+        .form-horizontal .form-active {
+            background-color: #fffff0;
+            border: 1px dashed #43acf7;
+        }
+
+        .form-active .delete-field {
+            float: right;
+            margin-top: -3.5%;
+            font-size: 0.7rem;
+            color: white;
+            padding: 3px;
+            border-radius: 9px;
+            background-color: #ff7272;
+            margin-right: -3%;
+            display: inline !important;
+        }
+
+    </style>-->
+</head>
+<body>
+<div id="defined-field-html">
+    <div class="assembly">
+        <div class="assembly-title"><strong>控件库</strong> 点击到自定义区域进行设置</div>
+        <div class="assembly-group">
+            <button type="button" class="btn btn-default " field-type="input" field-context="单行文本">单行文本&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" class="btn btn-default " field-type="textarea" field-context="多行文本">
+                多行文本&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-edit"></span></button>
+            <button type="button" class="btn btn-default " field-type="radiobox" field-context="单选按钮组">单选按钮组&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-record"></span></button>
+            <button type="button" class="btn btn-default " field-type="checkbox" field-context="多选按钮组">多选按钮组&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-unchecked"></span></button>
+            <button type="button" class="btn btn-default " field-type="inputtime" field-context="时间控件">
+                时间控件&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-time"></span>
+            </button>
+            <button type="button" class="btn btn-default field" field-type="select" field-context="下拉菜单">下拉菜单&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-resize-vertical"></span></button>
+        </div>
+    </div>
+    <div class="pretermit-field">
+        <div class="title-head">默认字段:</div>
+        <form class="form-horizontal" role="form">
+        </form>
+    </div>
+    <div class="extra-field">
+        <div class="title-head">自定义字 段:</div>
+        <form class="form-horizontal" role="form">
+        </form>
+    </div>
+    <div class="field-setting">
+        <div class="title">编辑控件 : <span class="glyphicon span-red span-icon-cursor glyphicon-remove "></span>
+            <small>单行文本</small>
+        </div>
+        <hr>
+        <div class="field-setting-context">
+
+        </div>
+        <div class="action">
+            <button type="button" class="btn btn-primary post">确认提交</button>
+            <button type="button" class="btn btn-danger cancel">误操取消</button>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    seajs.use('./definedfield');
+</script>
+</body>
+</html>

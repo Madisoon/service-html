@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>上元信</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/img/titleicon.ico">
+    <link href="../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/header.css" rel="stylesheet" type="text/css">
+    <script src="../spm_modules/jquery/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="../spm_modules/layer/layer.js" type="text/javascript"></script>
+    <script src="../spm_modules/seajs-3.0.0/dist/sea.js" type="text/javascript"></script>
+    <style>
+        body {
+            background-color: #f7fafc;
+            /*background-image: url('background.jpg');*/
+            background-size: 100% 100%;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+        }
+
+        .login_main_html {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            overflow-x: auto;
+        }
+
+        .login_main_html .login_context {
+            margin-top: 70px;
+            width: 400px;
+            min-width: 400px;
+            margin-left: 35%;
+        }
+
+        .login_context h1 {
+            color: #0f88eb;
+            font-size: 4.5rem;
+            text-align: center;
+            font-family: '华文行楷' !important;
+        }
+
+        .login_context h2 {
+            text-align: center;
+            font-weight: 400;
+            font-size: 23px;
+            margin-top: 25px;
+            font-family: '华文行楷' !important;
+        }
+
+        .login_context .context_input {
+            width: 86%;
+            margin-left: 7%;
+            margin-top: 35px;
+        }
+
+        .login_context .context_input .form-control {
+            height: 41px;
+        }
+
+        .login_context .context_input button {
+            width: 100%;
+
+        }
+
+        .login_context .context_input .btn {
+            font-size: 16px;
+        }
+
+        .fakeLoader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #2299ee;
+            z-index: 10;
+        }
+
+        .checkbox label {
+            font-size: .9rem;
+            color: #999;
+        }
+
+        figure {
+            margin: 0;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.4, 1.4);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border-radius: 150px;
+            box-sizing: border-box;
+            animation: rotation 20s infinite linear;
+        }
+
+        figure div:after {
+            content: "";
+            width: 25px;
+            height: 25px;
+            border: 2px solid #fff;
+            box-sizing: border-box;
+            position: absolute;
+            left: 25px;
+            top: 25px;
+            animation: shuffle 2s infinite;
+        }
+
+        figure div:nth-child(1) {
+            transform: rotate(0deg)
+        }
+
+        figure div:nth-child(1):after {
+            animation-delay: -0.5s;
+        }
+
+        figure div:nth-child(2) {
+            transform: rotate(45deg)
+        }
+
+        figure div:nth-child(2):after {
+            animation-delay: -1s;
+        }
+
+        figure div:nth-child(3) {
+            transform: rotate(90deg)
+        }
+
+        figure div:nth-child(3):after {
+            animation-delay: -1.5s;
+        }
+
+        figure div:nth-child(4) {
+            transform: rotate(135deg)
+        }
+
+        figure div:nth-child(4):after {
+            animation-delay: -2s;
+        }
+
+        figure div:nth-child(5) {
+            transform: rotate(180deg)
+        }
+
+        figure div:nth-child(5):after {
+            animation-delay: -2.5s;
+        }
+
+        figure div:nth-child(6) {
+            transform: rotate(225deg)
+        }
+
+        figure div:nth-child(6):after {
+            animation-delay: -3s;
+        }
+
+        figure div:nth-child(7) {
+            transform: rotate(270deg)
+        }
+
+        figure div:nth-child(7):after {
+            animation-delay: -3.5s;
+        }
+
+        figure div:nth-child(8) {
+            transform: rotate(315deg)
+        }
+
+        figure div:nth-child(8):after {
+            animation-delay: -4s;
+        }
+
+        @keyframes rotation {
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg) scale(1.4, 1.4);
+            }
+        }
+
+        @keyframes shuffle {
+            50% {
+                transform: scale(0.4, 0.4) rotate(-90deg);
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="fakeLoader" style="display: none">
+    <figure>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </figure>
+</div>
+<canvas id="space"></canvas>
+<div class="login_main_html">
+    <div class="login_context">
+        <div class="context_head">
+            <h1>消息推送平台</h1>
+
+            <h2 class="subtitle">消息推送，计划任务，后台管理</h2>
+        </div>
+        <div class="context_input">
+            <form role="form">
+                <div class="form-group">
+                    <input class="form-control" id="user_loginname" type="type" placeholder=" 账 号 ">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" id="user_password" type="password" placeholder=" 密 码 ">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input id="remember_password" type="checkbox"> 记&nbsp;住&nbsp;密&nbsp;码
+                    </label>
+                </div>
+            </form>
+            <button class="btn btn-primary" id="login_button" type="button">登&nbsp;&nbsp;陆</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    seajs.use("../app/login.js");
+</script>
+</body>
+</html>

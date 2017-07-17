@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <style>
+
+        #configure-manage-html {
+            display: flex;
+            width: 98%;
+            padding: 8px;
+        }
+
+        .qq-manage {
+            flex: 1;
+        }
+
+        .plan-manage {
+            flex: 1;
+            margin-left: 1%;
+        }
+
+        .table {
+            margin-top: 5px;
+        }
+
+        .title-word {
+            width: 12%;
+        }
+
+        #plan-editor-dialog .table .form-control {
+            height: 30px !important;
+        }
+
+        #plan-editor-dialog .form-horizontal {
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+<div id="configure-manage-html">
+    <div class="qq-manage">
+        <button type="button" class="btn btn-primary" id="add-qq-btn">新增QQ</button>
+        <button type="button" class="btn btn-danger" id="delete-qq-btn">删除QQ</button>
+        <div class="table">
+            <table class="table table-condensed" id="qq-table"></table>
+        </div>
+    </div>
+    <div class="plan-manage">
+        <button type="button" class="btn btn-primary" id="add-plan-btn">新增计划</button>
+        <button type="button" class="btn btn-danger" id="delete-plan-btn">删除计划</button>
+        <div class="table">
+            <table class="table table-condensed" id="plan-table"></table>
+        </div>
+    </div>
+    <div id="qq-editor-dialog" class="dialog-context-width" style="display: none">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">QQ账号</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="qq-number" placeholder="qq账号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">QQ密码</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="qq-password" placeholder="qq密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">QQ昵称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="qq-name" placeholder="qq昵称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="qq-remark" placeholder="备注"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-warning" id="qq-test-btn">测 试</button>
+            <button type="button" class="btn btn-success" id="qq-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="qq-post-btn">确认提交</button>
+        </div>
+    </div>
+    <div id="plan-editor-dialog" class="dialog-context-width" style="display: none">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">计划任务名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="plan-name" placeholder="计划任务名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">计划任务备注</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="plan-remark" placeholder="计划任务备注"></textarea>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>星期</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                    <th>星期六</th>
+                    <th>星期日</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="title-word"><label>开始时间</label></td>
+                    <td><input type="email" class="form-control time-start day-one-start" id="first-time-start"
+                               placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-start day-two-start" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-start day-three-start" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-start day-four-start" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-start day-five-start" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-start day-six-start" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-start day-seven-start" placeholder="时间"></td>
+                </tr>
+                <tr>
+                    <td class="title-word"><label>结束时间</label></td>
+                    <td><input type="email" class="form-control time-end day-one-end" id="first-time-last"
+                               placeholder="时间">
+                    </td>
+                    <td><input type="email" class="form-control time-end day-two-end" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-end day-three-end" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-end day-four-end" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-end day-five-end" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-end day-six-end" placeholder="时间"></td>
+                    <td><input type="email" class="form-control time-end day-seven-end" placeholder="时间"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="plan-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="plan-post-btn">确认提交</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    seajs.use('./configuremanage');
+</script>
+</body>
+</html>

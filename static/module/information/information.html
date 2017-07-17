@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <title>Title</title>
+    <style>
+        #information-html {
+            padding: 8px;
+            height: 100%;
+        }
+
+        #choose-time-section {
+            position: fixed;
+            left: 15%;
+            top: 5.5%;
+            height: 120px;
+            width: 300px;
+            padding: 8px;
+            z-index: 2;
+        }
+
+        #choose-time-section .title-time {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        #remove-choose-time {
+            float: right;
+        }
+
+        #remove-choose-time:hover {
+            color: #2299ee;
+        }
+
+        .time-input {
+            display: flex;
+        }
+
+        .time-input #choose-start-time {
+            flex: 1 1 49%;
+        }
+
+        .time-input #choose-end-time {
+            flex: 1 1 49%;
+            margin-left: 2%;
+        }
+
+        #sure-choose-time {
+            float: right;
+            margin-top: 5px;
+        }
+
+        .button {
+            margin-bottom: -4%;
+        }
+
+        .top-header .opertion {
+            margin-left: 1%;
+        }
+
+        .top-header .button {
+            flex: 1;
+        }
+
+        .top-header .input {
+            display: inline-flex;
+        }
+
+        .input #search-word, .input #select-word {
+            width: 160px;
+        }
+
+        .input input, .input select, .input button {
+            margin: 1%;
+        }
+
+        .center-body {
+            margin-top: 8px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        #add-infor {
+            width: 95%;
+            margin-left: 2%;
+            margin-top: 10px;
+        }
+
+        #add-infor .my-tag {
+            font-weight: 600;
+            color: #FF4040;
+        }
+
+        form .tag, form .my-tag-show {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        form .tag .label, form .my-tag-show .label {
+            margin-left: 1%;
+            margin-top: 8px;
+        }
+
+        #add-infor .my-tag {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #add-infor .my-tag .label {
+            margin-left: 1%;
+            margin-top: 8px;
+        }
+
+        .infor-search {
+            display: flex;
+            width: 97.5%;
+            margin-left: 2.5%;
+        }
+
+        .infor-search .form-group {
+            margin-left: 8px;
+            margin-bottom: 10px;
+        }
+
+        .ztree li {
+            margin-top: 8px;
+        }
+
+        .ztree * {
+            font-family: '微软雅黑';
+            font-size: 1.1rem;
+        }
+
+        .ztree li a.curSelectedNode {
+            background: #5cb85c;
+            height: 19px;
+            border: 0px #FFB951 solid;
+        }
+
+        #other-tag-choose {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #other-tag-choose .tag-show {
+            flex: 1;
+        }
+
+        #other-tag-choose .tag-show, #search-tag-choose .tag-show {
+            margin-left: 32%;
+        }
+
+        #other-tag-choose .tag-show-word, #search-tag-choose .tag-show-word {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        #other-tag-choose .tag-show-describe, #search-tag-choose .tag-show-describe {
+            font-size: 1.0rem;
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        #scheme-choose-dialog {
+            display: flex;
+            /*            width: 98%;
+                        padding: 8px;*/
+        }
+
+        #scheme-choose-dialog .scheme-context {
+            display: flex;
+            width: 100%;
+        }
+
+        .scheme-area {
+            flex: 1 1 20%;
+        }
+
+        .scheme-context-show {
+            flex: 1 1 80%;
+        }
+
+        .search-scheme-customer {
+            display: flex;
+        }
+
+        .search-scheme-customer .control-label {
+            flex: 1 1 20%;
+            align-self: center;
+        }
+
+        .search-scheme-customer .form-control {
+            flex: 1 1 60%;
+        }
+
+        .search-scheme-customer .search-scheme {
+            flex: 1 1 20%;
+        }
+
+        .scheme-info {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        #choose-customer-btn {
+            display: flex;
+
+        }
+
+        .form-group.select {
+            width: 110px;
+        }
+
+        .relative-dialog-action {
+            margin-left: 59%;
+            margin-bottom: 8px;
+        }
+
+        .add-info-dialog-action {
+            float: right;
+            margin-bottom: 6px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="information-html">
+    <div id="choose-time-section" class="area-segment" style="display: none">
+        <p class="title-time">时间区间
+            <span class="glyphicon glyphicon-remove span-icon-cursor" id="remove-choose-time"></span>
+        </p>
+        <div class="time-input">
+            <input type="text" class="form-control" id="choose-start-time" placeholder="开始时间">
+            <input type="text" class="form-control" id="choose-end-time" placeholder="结束时间">
+        </div>
+        <button type="button" class="btn btn-primary" id="sure-choose-time">确定</button>
+    </div>
+    <div class="infor-search" style="display: none">
+        <div class="form-group">
+            <input type="text" class="form-control" id="contact-info-user"
+                   placeholder="信息员">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="contact-info-time"
+                   placeholder="提交时间">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="contact-info-title"
+                   placeholder="信息标题">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="contact-info-context"
+                   placeholder="信息内容">
+        </div>
+        <div class="form-group select">
+            <select class="form-control" id="contact-info-type">
+                <option value="">请选择</option>
+                <option value="1">正面</option>
+                <option value="0">负面</option>
+            </select>
+        </div>
+        <div class="form-group select">
+            <select class="form-control" id="contact-info-grade">
+                <option value="">请选择</option>
+                <option value="1">1级</option>
+                <option value="2">2级</option>
+                <option value="3">3级</option>
+            </select>
+        </div>
+        <div class="form-group ">
+            <input type="text" class="form-control" id="contact-info-tag" placeholder="信息标签">
+        </div>
+        <div class="form-group" id="choose-customer-btn">
+            <input type="text" class="form-control" id="contact-info-customer"
+                   placeholder="关联客户">
+            <button type="button" class="btn btn-info" id="choose-contact-customer-btn">……
+            </button>
+        </div>
+        <div class="form-group select">
+            <select class="form-control" id="contact-info-status">
+                <option value="">请选择</option>
+                <option value="1">成功</option>
+                <option value="0">失败</option>
+            </select>
+        </div>
+    </div>
+    <div class="button">
+        <button type="button" class="btn opertion btn-primary" id="add-infor-btn">新建信息</button>
+        <button type="button" class="btn opertion btn-danger" id="delete-infor-btn">删除信息</button>
+        <button type="button" class="btn opertion btn-success" id="post-infor-btn">手工发送</button>
+        <button type="button" class="btn opertion btn-info export-infor-btn" exportType="word">导出word</button>
+        <button type="button" class="btn opertion btn-info export-infor-btn" exportType="excel">导出excel</button>
+        <button type="button" class="btn opertion btn-danger" id="choose-infor-btn">筛选条件</button>
+        <button type="button" class="btn btn-warning" id="choose-infor">
+            <span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;筛选
+        </button>
+    </div>
+    <section class="center-body">
+        <div class="table">
+            <table class="table table-condensed" id="all-infor"></table>
+        </div>
+    </section>
+    <div id="add-infor" class="dialog-context-width" style="display: none">
+
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">写 入：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control infor-write" rows="2" placeholder="写 入"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标 题：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control infor-title" placeholder="信息标题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">内 容：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control infor-context" rows="3" placeholder="信息内容"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">链 接：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control infor-link" placeholder="信息链接">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">站 点：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control infor-site" placeholder="站 点">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">信息来源：</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="新闻"> 新闻
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="论坛"> 论坛
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="微博"> 微博
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="博客"> 博客
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="视频"> 视频
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="微信"> 微信
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value=" 移动端"> 移动端
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="海外"> 海外
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="其它"> 其它
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类 型：</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="type-radio" value="0">
+                        敏感
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="type-radio" value="1">
+                        非敏感
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">等 级：</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="grade-radio" value="1" checked="checked"> 1级
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="grade-radio" value="2"> 2级
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="grade-radio" value="3"> 3级
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标 签 <span
+                        class="glyphicon glyphicon-plus span-icon-cursor span-yellow" data-toggle="tooltip"
+                        data-placement="bottom" title="选 择 标 签 ！" id="add-other-tag"></span>：</label>
+                <div class="col-sm-10">
+                    <div class="tag">
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label my-tag">我的常用标签：</label>
+                <div class="col-sm-10">
+                    <div class="my-tag-show">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="add-info-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="post-btn">确认提交</button>
+        </div>
+    </div>
+    <!--弹出层，选择额外的不属于自己的标签-->
+    <div id="other-tag-choose" class="dialog-context-width" style="display: none">
+        <div class="tag-show-word">标签树</div>
+        <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
+        <div class="tag-show">
+            <ul id="tag-tree" class="ztree"></ul>
+        </div>
+        <div class="relative-dialog-action">
+            <button type="button" class="btn btn-success" id="tag-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="tag-post-btn">确认提交</button>
+        </div>
+    </div>
+
+    <div id="search-tag-choose" class="dialog-context-width" style="display: none">
+        <div class="tag-show-word">标签树</div>
+        <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
+        <div class="tag-show">
+            <ul id="choose-tag-tree" class="ztree"></ul>
+        </div>
+        <div class="relative-dialog-action">
+            <button type="button" class="btn btn-success" id="choose-tag-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="choose-tag-post-btn">确认提交</button>
+        </div>
+    </div>
+
+    <div id="scheme-choose-dialog" class="dialog-context-width" style="display: none">
+        <div class="scheme-context">
+            <div class="scheme-area">
+                <ul id="scheme-area-tree" class="ztree"></ul>
+            </div>
+            <div class="scheme-context-show area-segment">
+                <div class="search-scheme-customer">
+                    <label class="control-label">客户名称:</label>
+                    <input type="text" class="form-control" id="search-scheme-name" placeholder="客户名称">
+                    <button type="submit" class="btn btn-primary search-scheme">搜索</button>
+                </div>
+                <div class="scheme-info">
+                </div>
+            </div>
+        </div>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-scheme-btn">取消</button>
+            <button type="button" class="btn btn-primary" id="post-scheme-btn">确认提交</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    seajs.use('./information');
+</script>
+</body>
+</html>

@@ -273,12 +273,6 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   border: 0px #FFB951 solid;
 }
 
-.absolute-dialog-action {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-}
-
 .area-segment {
   position: relative;
   background: #FFF;
@@ -291,7 +285,19 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
 /*弹出统一宽度*/
 .dialog-context-width {
   width: 98%;
+  min-height: 100%;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.absolute-dialog-action {
+  text-align: right;
+  margin-bottom: 8px;
+}
+
+.dialog-context-show {
+  flex: 1;
 }
 
 /** common style end **/
@@ -422,6 +428,7 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   }
 
   .scheme-context-show {
+
     flex: 1 1 80%;
   }
 

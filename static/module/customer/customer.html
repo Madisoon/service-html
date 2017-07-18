@@ -342,13 +342,13 @@
                 </form>
             </div>
         </div>
-        <div class="dialog-action">
+        <div class="absolute-dialog-action">
             <button type="button" class="btn btn-success" id="cancel-customer-btn">取消</button>
             <button type="button" class="btn btn-primary" id="post-customer-btn">确认提交</button>
         </div>
     </div>
     <div id="add-remark-info" class="dialog-context-width" style="display: none">
-        <form class="form-horizontal">
+        <form class="form-horizontal dialog-context-show">
             <div class="form-group">
                 <label class="col-sm-2 control-label">号码</label>
                 <div class="col-sm-10">
@@ -368,8 +368,8 @@
         </div>
     </div>
 
-    <div id="scheme-choose-dialog" class="dialog-context-width" style="display: none">
-        <div class="scheme-context">
+    <div id="scheme-choose-dialog" class="dialog-context-width" style="display: none;min-height: 100%;">
+        <div class="scheme-context dialog-context-show">
             <div class="scheme-area">
                 <ul id="scheme-area-tree" class="ztree"></ul>
             </div>
@@ -380,6 +380,7 @@
                     <button type="submit" class="btn btn-primary search-scheme">搜索</button>
                 </div>
                 <div class="scheme-info">
+
                 </div>
             </div>
         </div>

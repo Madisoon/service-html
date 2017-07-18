@@ -62,7 +62,7 @@ define(function (require, exports, module) {
         $('#choose-time-section').stop().slideUp();
     });
     tagShow.tagOperation.writeDomTag(false, 'tag-tree');
-    tagChooseShow.tagOperation.writeDomTag(false, 'choose-tag-tree');
+    tagChooseShow.tagOperation.writeDomTag(true, 'choose-tag-tree');
     //添加信息的标签
     $('#add-infor-btn').unbind('click').click(function () {
         getSetFormValue(null, true);
@@ -143,11 +143,16 @@ define(function (require, exports, module) {
         layer.close(searchTagDialog);
         var searchTagIdTemporary = [];
         var tagData = tagChooseShow.tagOperation.getTreeValue(true, 'choose-tag-tree');
-        var tagDataLen = tagData.length;
+        var tagDataId = tagChooseShow.tagOperation.getTreeValue(false, 'choose-tag-tree');
+        var tagDataIdLen = tagDataId.length;
         var dom = [];
+        for (var i = 0; i < tagDataIdLen; i++) {
+            searchTagIdTemporary.push(tagDataId[i]);
+        }
+
+        var tagDataLen = tagData.length;
         for (var i = 0; i < tagDataLen; i++) {
             dom.push(tagData[i].name);
-            searchTagIdTemporary.push(tagData[i].id);
         }
         $('#contact-info-tag').val(dom.join('|'));
         searchTagId = searchTagIdTemporary;

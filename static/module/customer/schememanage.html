@@ -130,7 +130,7 @@
         </div>
     </div>
     <div id="scheme-add-dialog" class="dialog-context-width" style="display: none">
-        <form class="form-horizontal">
+        <form class="form-horizontal dialog-context-show">
             <div class="form-group">
                 <label class="col-sm-2 control-label">方案名称</label>
                 <div class="col-sm-10">
@@ -214,14 +214,14 @@
                 <label class="col-sm-2 control-label">（单位秒）</label>
             </div>
         </form>
-        <div class="relative-dialog-action">
+        <div class="absolute-dialog-action">
             <button type="button" class="btn btn-success" id="scheme-cancel-btn">取 消</button>
             <button type="button" class="btn btn-primary" id="scheme-post-btn" disabled="disabled">确认提交</button>
         </div>
     </div>
 
     <div id="scheme-tag-dialog" class="dialog-context-width" style="display:  none">
-        <div>
+        <div class="dialog-context-show">
             <ul id="tag-tree" class="ztree"></ul>
         </div>
         <div class="absolute-dialog-action">
@@ -231,7 +231,7 @@
     </div>
 
     <div id="choose-scheme-tag-dialog" class="dialog-context-width" style="display:  none">
-        <div>
+        <div class="dialog-context-show">
             <ul id="choose-tag-tree" class="ztree"></ul>
         </div>
         <div class="absolute-dialog-action">

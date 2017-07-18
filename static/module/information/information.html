@@ -436,31 +436,35 @@
     </div>
     <!--弹出层，选择额外的不属于自己的标签-->
     <div id="other-tag-choose" class="dialog-context-width" style="display: none">
-        <div class="tag-show-word">标签树</div>
-        <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
-        <div class="tag-show">
-            <ul id="tag-tree" class="ztree"></ul>
+        <div class="dialog-context-show">
+            <div class="tag-show-word">标签树</div>
+            <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
+            <div class="tag-show">
+                <ul id="tag-tree" class="ztree"></ul>
+            </div>
         </div>
-        <div class="relative-dialog-action">
+        <div class="absolute-dialog-action">
             <button type="button" class="btn btn-success" id="tag-cancel-btn">取 消</button>
             <button type="button" class="btn btn-primary" id="tag-post-btn">确认提交</button>
         </div>
     </div>
 
     <div id="search-tag-choose" class="dialog-context-width" style="display: none">
-        <div class="tag-show-word">标签树</div>
-        <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
-        <div class="tag-show">
-            <ul id="choose-tag-tree" class="ztree"></ul>
+        <div class="dialog-context-show">
+            <div class="tag-show-word">标签树</div>
+            <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
+            <div class="tag-show">
+                <ul id="choose-tag-tree" class="ztree"></ul>
+            </div>
         </div>
-        <div class="relative-dialog-action">
+        <div class="absolute-dialog-action">
             <button type="button" class="btn btn-success" id="choose-tag-cancel-btn">取 消</button>
             <button type="button" class="btn btn-primary" id="choose-tag-post-btn">确认提交</button>
         </div>
     </div>
 
     <div id="scheme-choose-dialog" class="dialog-context-width" style="display: none">
-        <div class="scheme-context">
+        <div class="scheme-context dialog-context-show">
             <div class="scheme-area">
                 <ul id="scheme-area-tree" class="ztree"></ul>
             </div>

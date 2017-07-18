@@ -307,7 +307,7 @@ define(function (require, exports, module) {
             $('.radio-inline').show();
         } else {
             $('.radio-inline').hide();
-            $('.radio-inline input[schemeName=' + schemeName + ']').parent().show();
+            $('.radio-inline input[schemeName*=' + schemeName + ']').parent().show();
         }
     });
 

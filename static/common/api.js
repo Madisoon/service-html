@@ -560,18 +560,28 @@ define(function (require, exports, module) {
     }());
 
     var app = (function () {
+        var url = baseUrl;
         return {
             appModule: {
-                insertAppModule: function (appModuleInfo, appModuleInfoTag, appArea, success) {
-                    getDataWay(url + "insertTag", {
+                insertAppModule: function (appModuleInfo, appModuleTag, appModuleBaseTag, appArea, success) {
+                    getDataWay(url + "insertAppModule", {
                         appModuleInfo: appModuleInfo,
-                        appModuleInfoTag: appModuleInfoTag,
+                        appModuleTag: appModuleTag,
+                        appModuleBaseTag: appModuleBaseTag,
                         appArea: appArea,
                     }, success);
                 },
                 deleteAppModule: function (appModuleId, success) {
                     getDataWay(url + "deleteAppModule", {
                         appModuleId: appModuleId
+                    }, success);
+                },
+                updateAppModule: function (appModuleId, appModuleInfo, appModuleTag, appModuleBaseTag, success) {
+                    getDataWay(url + "updateAppModule", {
+                        appModuleId: appModuleId,
+                        appModuleInfo: appModuleInfo,
+                        appModuleTag: appModuleTag,
+                        appModuleBaseTag: appModuleBaseTag
                     }, success);
                 }
             },

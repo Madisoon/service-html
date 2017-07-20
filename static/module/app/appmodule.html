@@ -20,122 +20,87 @@
     <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
     <script src="../../../spm_modules/ztree/jquery.ztree.exedit.min.js"></script>
     <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <style>
+        #topic-module-html {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 8px;
+        }
+
+        .left-content {
+            flex: 1 1 16%;
+        }
+
+        .right-content {
+            margin-left: 1%;
+            flex: 1 1 83%;
+        }
+
+        .table {
+            margin-top: 8px;
+        }
+
+        .info-tag {
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+
+        .topic-tag {
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+
+        #tag-show {
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+
+        #topic-tag-show {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
-<!--<style>
-    #terrace-module-html {
-        display: flex;
-        width: 98%;
-        padding: 8px;
-    }
-
-    .left-content {
-        flex: 1 1 10%;
-    }
-
-    .right-content {
-        flex: 1 1 88%;
-        margin-left: 2%;
-    }
-
-    .operation-head {
-        margin-bottom: -4%;
-    }
-
-    #terrace-tag-show .terrace-tag {
-        margin-left: 1%;
-        margin-top: 8px;
-    }
-
-    #terrace-tag-show {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .terrace-choose-input {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .terrace-choose-input .form-group {
-        flex: 1 1 12%;
-        margin-left: 1%;
-        margin-bottom: 10px;
-    }
-
-    .form-group.first {
-        margin-left: 0%;
-    }
-
-</style>-->
 <body>
-<div id="terrace-module-html">
+<div id="topic-module-html">
     <div class="left-content">
         <div>
             <ul id="area-tree" class="ztree"></ul>
         </div>
     </div>
     <div class="right-content">
-        <div class="terrace-choose-input" style="display: none">
-            <div class="form-group first">
-                <input type="text" class="form-control terrace-choose-name" placeholder="模块名称">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control terrace-choose-tag" placeholder="标签">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control terrace-choose-imp" placeholder="匹配关键词">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control terrace-choose-no-imp" placeholder="排除关键词">
-            </div>
-            <div class="form-group">
-                <select class="form-control" id="terrace-choose-grade">
-                    <option value="">请选择</option>
-                    <option value="1">1级</option>
-                    <option value="2">2级</option>
-                    <option value="3">3级</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control" id="terrace-choose-plan">
-                    <option value="">请选择</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control choose-creater" placeholder="创建人">
-            </div>
-        </div>
         <div class="operation-head">
-            <button type="button" class="btn btn-primary" id="add-terrace">新建模块</button>
-            <button type="button" class="btn btn-success" id="delete-terrace">删除模块</button>
-            <button type="button" class="btn btn-danger" id="choose-terrace">筛选模块栏</button>
-            <button type="button" class="btn btn-warning" id="choose-terrace-sure">筛选模块</button>
+            <button type="button" class="btn btn-primary" id="add-topic">新建模块</button>
+            <button type="button" class="btn btn-success" id="delete-topic">删除模块</button>
+            <button type="button" class="btn btn-danger" id="choose-topic">筛选模块栏</button>
+            <button type="button" class="btn btn-warning" id="choose-topic-sure">筛选模块</button>
         </div>
         <div class="table">
-            <table class="table table-condensed" id="all-terrace-table"></table>
+            <table class="table table-condensed" id="all-topic-table"></table>
         </div>
     </div>
-    <div id="terrace-add-dialog" class="dialog-context-width" style="display: none">
-        <form class="form-horizontal">
+    <div id="topic-add-dialog" class="dialog-context-width" style="display: none">
+        <form class="form-horizontal dialog-context-show">
             <div class="form-group">
                 <label class="col-sm-2 control-label">模块名称</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="terrace-name" placeholder="模块名称">
+                    <input type="text" class="form-control app-module-name" placeholder="模块名称">
                 </div>
             </div>
-
             <div class="form-group">
                 <label class="col-sm-2 control-label">标签&nbsp;&nbsp;<span
-                        class="glyphicon span-red span-icon-cursor glyphicon-plus" id="add-terrace-tag"></span></label>
-                <div class="col-sm-10" id="terrace-tag-show">
+                        class="glyphicon span-red span-icon-cursor glyphicon-plus" id="add-info-tag"></span></label>
+                <div class="col-sm-10" id="tag-show">
 
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">聚焦标签&nbsp;&nbsp;<span
-                        class="glyphicon span-red span-icon-cursor glyphicon-plus" id="add-terrace-tag"></span></label>
-                <div class="col-sm-10" id="terrace-tag-show">
+                        class="glyphicon span-red span-icon-cursor glyphicon-plus" id="add-topic-tag"></span></label>
+                <div class="col-sm-10" id="topic-tag-show">
 
                 </div>
             </div>
@@ -143,54 +108,54 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">匹配关键词</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" rows="3" id="terrace-imp" placeholder="匹配关键词"></textarea>
+                    <textarea class="form-control app-module-imp" rows="3" placeholder="匹配关键词"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">排除关键词</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" rows="2" id="terrace-no-imp" placeholder="排除关键词"></textarea>
+                    <textarea class="form-control app-module-noimp" rows="2" placeholder="排除关键词"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">信息级别</label>
                 <div class="col-sm-10">
                     <label class="checkbox-inline">
-                        <input type="checkbox" class="terrace-grade" value="1" checked="checked"> 1级
+                        <input type="checkbox" class="app-module-grade" value="1" checked="checked"> 1级
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" class="terrace-grade" value="2" checked="checked"> 2级
+                        <input type="checkbox" class="app-module-grade" value="2" checked="checked"> 2级
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" class="terrace-grade" value="3" checked="checked"> 3级
+                        <input type="checkbox" class="app-module-grade" value="3" checked="checked"> 3级
                     </label>
                 </div>
             </div>
         </form>
         <div class="absolute-dialog-action">
-            <button type="button" class="btn btn-success" id="terrace-cancel-btn">取 消</button>
-            <button type="button" class="btn btn-primary" id="terrace-post-btn" disabled="disabled">确认提交</button>
+            <button type="button" class="btn btn-success" id="module-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="module-post-btn">确认提交</button>
         </div>
     </div>
 
-    <div id="terrace-tag-dialog" class="dialog-context-width" style="display:  none">
-        <div>
-            <ul id="tag-tree" class="ztree"></ul>
+    <div id="info-tag-dialog" class="dialog-context-width" style="display:  none">
+        <div class="dialog-context-show">
+            <ul id="info-tag-tree" class="ztree"></ul>
         </div>
         <div class="absolute-dialog-action">
-            <button type="button" class="btn btn-success" id="add-cancel-btn">取 消</button>
-            <button type="button" class="btn btn-primary" id="add-tag-btn">确认提交</button>
+            <button type="button" class="btn btn-success" id="cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="add-info-tag-btn">确认提交</button>
         </div>
     </div>
 
-    <div id="choose-terrace-tag-dialog" class="dialog-context-width" style="display:  none">
-        <div>
-            <ul id="choose-tag-tree" class="ztree"></ul>
+    <div id="topic-tag-dialog" class="dialog-context-width" style="display:  none">
+        <div class="dialog-context-show">
+            <ul id="topic-tag-tree" class="ztree"></ul>
         </div>
         <div class="absolute-dialog-action">
             <button type="button" class="btn btn-success" id="choose-cancel-btn">取 消</button>
-            <button type="button" class="btn btn-primary" id="choose-tag-btn">确认提交</button>
+            <button type="button" class="btn btn-primary" id="add-topic-tag-btn">确认提交</button>
         </div>
     </div>
 </div>

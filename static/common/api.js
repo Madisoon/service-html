@@ -576,6 +576,11 @@ define(function (require, exports, module) {
                         appModuleId: appModuleId
                     }, success);
                 },
+                getAllAppModuleByAreaId: function (areaId, success) {
+                    getDataWay(url + "getAllAppModuleByAreaId", {
+                        areaId: areaId
+                    }, success);
+                },
                 updateAppModule: function (appModuleId, appModuleInfo, appModuleTag, appModuleBaseTag, success) {
                     getDataWay(url + "updateAppModule", {
                         appModuleId: appModuleId,
@@ -585,6 +590,27 @@ define(function (require, exports, module) {
                     }, success);
                 }
             },
+            appUser: {
+                insertAppUser: function (appUserInfo, appUserProgram, areaId, success) {
+                    getDataWay(url + "insertAppUser", {
+                        appUserInfo: appUserInfo,
+                        appUserProgram: appUserProgram,
+                        areaId: areaId
+                    }, success);
+                },
+                updateAppUser: function (appUserId, appUserInfo, appUserProgram, success) {
+                    getDataWay(url + "updateAppUser", {
+                        appUserId: appUserId,
+                        appUserInfo: appUserInfo,
+                        appUserProgram: appUserProgram
+                    }, success);
+                },
+                deleteAppUser: function (appUserLoginName, success) {
+                    getDataWay(url + "deleteAppUser", {
+                        appUserLoginName: appUserLoginName
+                    }, success);
+                },
+            }
         }
     }());
     return {

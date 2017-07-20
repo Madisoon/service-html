@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
     <link href="../../header.css" rel="stylesheet" type="text/css">
     <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/datepicker/jquery.datetimepicker.full.min.js"></script>
     <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
     <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
     <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
@@ -14,14 +16,227 @@
     <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
     <script src="../../../spm_modules/ztree/jquery.ztree.exedit.min.js"></script>
     <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
-    <script src="../../../spm_modules/ueditor/ueditor.config.js"></script>
-    <script src="../../../spm_modules/ueditor/ueditor.all.min.js"></script>
-    <script src="../../../spm_modules/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <style>
+        .app-user-html {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 8px;
+        }
+
+        .left-area-nav {
+            flex: 1 1 16%;
+        }
+
+        .right-app-user-context {
+            flex: 1 1 83%;
+            margin-left: 1%;
+        }
+
+        .program-head {
+            display: flex;
+        }
+
+        .program-context-item {
+            display: flex;
+            padding: 8px;
+            border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+        }
+
+        .program-show .program-name {
+            flex: 0 0 15%;
+            font-size: 14px;
+            font-weight: 600;
+            color: red;
+        }
+
+        .program-show .program-module {
+            flex: 0 0 68%;
+            margin-left: 4%;
+            font-size: 14px;
+            font-weight: 600;
+            color: red;
+        }
+
+        .program-show .program-operation {
+            flex: 0 0 15%;
+        }
+
+        .program-module .app-module {
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+
+        .absolute-dialog-action {
+            margin-top: 8px;
+        }
+
+        #add-app-module-dialog .dialog-context-show {
+            display: flex;
+        }
+
+        .app-module-context {
+            flex: 1;
+            margin-left: 2%;
+        }
+
+        .search-app-module {
+            display: flex;
+        }
+
+        #search-module-name {
+            flex: 1;
+            margin-left: 2%;
+        }
+
+        .search-app-module {
+            margin-left: 2%;
+        }
+
+        .search-app-module .control-label {
+            line-height: 29px;
+        }
+
+        .search-app-module-show {
+            margin-top: 8px;
+        }
+
+        .module-tag {
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+
+        #app-user-table {
+            margin-top: 8px;
+        }
+
+    </style>
 </head>
 <body>
 <div class="app-user-html">
-
+    <div class="left-area-nav">
+        <div>
+            <ul id="area-tree" class="ztree"></ul>
+        </div>
+    </div>
+    <div class="right-app-user-context">
+        <div class="operation-head">
+            <button type="button" class="btn btn-primary" id="add-app-user">新建用户</button>
+            <button type="button" class="btn btn-success" id="delete-app-user">删除用户</button>
+            <button type="button" class="btn btn-danger" id="choose-app-user">筛选用户栏</button>
+            <button type="button" class="btn btn-warning" id="choose-topic-sure">筛选用户</button>
+        </div>
+        <div class="table">
+            <table class="table table-condensed" id="app-user-table"></table>
+        </div>
+    </div>
 </div>
+<div id="add-app-user-dialog" class="dialog-context-width" style="display:  none">
+    <div class="dialog-context-show">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control app-user-name" placeholder="用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control app-user-pwd" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control app-user-pwd-sure" placeholder="确认密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">到期时间</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control app-user-expiration-time" placeholder="到期时间">
+                </div>
+            </div>
+            <div class="program-show">
+                <div class="program-head">
+                    <div class="program-name">频道名称</div>
+                    <div class="program-module">所选模块</div>
+                    <div class="program-operation">
+                        <button type="button" class="btn btn-primary add-new-program">添加频道</button>
+                    </div>
+                </div>
+                <div class="program-context">
+                    <div class="program-context-item">
+                        <div class="program-name">
+                            <input type="text" class="form-control" placeholder="频道" value="推荐">
+                        </div>
+                        <div class="program-module">
+
+                        </div>
+                        <div class="program-operation" style="text-align: center">
+                            <span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>
+                            <span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>
+                        </div>
+                    </div>
+                    <div class="program-context-item">
+                        <div class="program-name">
+                            <input type="text" class="form-control" placeholder="频道" value="预警">
+                        </div>
+                        <div class="program-module">
+                        </div>
+                        <div class="program-operation" style="text-align: center">
+                            <span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>
+                            <span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>
+                        </div>
+                    </div>
+                    <div class="program-context-item">
+                        <div class="program-name">
+                            <input type="text" class="form-control" placeholder="频道" value="聚焦">
+                        </div>
+                        <div class="program-module">
+
+                        </div>
+                        <div class="program-operation" style="text-align: center">
+                            <span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>
+                            <span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="absolute-dialog-action">
+        <button type="button" class="btn btn-success" id="user-cancel-btn">取 消</button>
+        <button type="button" class="btn btn-primary" id="add-app-user-btn">确认提交</button>
+    </div>
+</div>
+
+
+<div id="add-app-module-dialog" class="dialog-context-width" style="display:  none">
+    <div class="dialog-context-show">
+        <div class="module-area-show">
+            <ul id="module-area-tree" class="ztree"></ul>
+        </div>
+        <div class="app-module-context area-segment">
+            <div class="search-app-module">
+                <label class="control-label">方案名称:</label>
+                <input type="text" class="form-control" id="search-module-name" placeholder="方案名称">
+                <button class="btn btn-primary search-app-module">搜索</button>
+            </div>
+            <div class="search-app-module-show">
+
+            </div>
+        </div>
+    </div>
+    <div class="absolute-dialog-action">
+        <button type="button" class="btn btn-success" id="cancel-module-btn">取 消</button>
+        <button type="button" class="btn btn-primary" id="add-app-module-btn">确认提交</button>
+    </div>
+</div>
+
+
 <script>
     seajs.use('./appuser');
 </script>

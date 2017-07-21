@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var areaIdModules = [];
     var $that = {};
     var userFlag = 1;
+    var rowUserLoginName = '';
 
     $.datetimepicker.setLocale('zh');
     $('.app-user-expiration-time').datetimepicker({
@@ -96,14 +97,36 @@ define(function (require, exports, module) {
         getAppModuleByAreaId();
     };
 
+    $('#delete-app-user').unbind('click').click(function () {
+        var dataAppUser = $('#app-user-table').bootstrapTable('getSelections', null);
+        var dataAppUserLen = dataAppUser.length;
+        var dataId = [];
+        if (dataAppUserLen === 0) {
+            layer.msg(' 没 有 选 中 任 何 数 据 ');
+        } else {
+            for (var i = 0; i < dataAppUserLen; i++) {
+                dataId.push(dataAppUser[i].app_user_loginname);
+            }
+            api.app.appUser.deleteAppUser(dataId.join(','), function (rep) {
+                if (rep.result) {
+                    tableStart();
+                    layer.msg(' 删 除 成 功 ！', {
+                        icon: 1,
+                        time: 1200,
+                    });
+                } else {
+                    layer.msg(' 删 除 失 败 ！', {
+                        icon: 2,
+                        time: 1200,
+                    });
+                }
+            });
+        }
+    });
 
     $('#add-app-user').click(function () {
-        addAppUserDialog = layer.open({
-            title: '焦点信息标签',
-            type: 1,
-            area: ['60%', '85%'], //宽高
-            content: $('#add-app-user-dialog')
-        });
+        userFlag = 1;
+        getSetFormValue({}, {});
     });
 
     $('.add-new-program').click(function () {
@@ -181,15 +204,6 @@ define(function (require, exports, module) {
         return userInfo
     }
 
-
-    function getSetForm() {
-        if (userFlag) {
-
-        } else {
-
-        }
-    }
-
     $('#add-app-user-btn').click(function () {
         var userInfo = getFormValue();
         var app_user_pwd = $('.form-control.app-user-pwd').val();
@@ -233,9 +247,9 @@ define(function (require, exports, module) {
                     if (app_user_pwd === app_user_pwd_sure) {
                         userInfo.app_user_pwd = app_user_pwd;
                         // 开始进行新增
-                        alert(areaId);
                         api.app.appUser.insertAppUser(JSON.stringify(userInfo), JSON.stringify(userProgram), areaId, function (rep) {
                             if (rep.result === 1) {
+                                tableStart();
                                 layer.close(addAppUserDialog);
                                 layer.msg(' 新 增 成 功 ', {
                                     icon: 1,
@@ -262,11 +276,42 @@ define(function (require, exports, module) {
             } else {
                 if (app_user_pwd === '' && app_user_pwd_sure === '') {
                     // 密码只要有一个为空，就判定为不想修改密码.进行修改
-
+                    delete userInfo.app_user_loginname;
+                    api.app.appUser.updateAppUser(rowUserLoginName, JSON.stringify(userInfo), JSON.stringify(userProgram), function (rep) {
+                        if (rep.result === 1) {
+                            tableStart();
+                            layer.close(addAppUserDialog);
+                            layer.msg(' 修 改 成 功 ', {
+                                icon: 1,
+                                time: 1200
+                            });
+                        } else {
+                            layer.msg(' 修 改 失 败', {
+                                icon: 2,
+                                time: 1200,
+                            });
+                        }
+                    });
                 } else {
                     if (app_user_pwd === app_user_pwd_sure) {
                         // 需要修改密码
                         userInfo.app_user_pwd = app_user_pwd;
+                        delete userInfo.app_user_loginname;
+                        api.app.appUser.updateAppUser(rowUserLoginName, JSON.stringify(userInfo), JSON.stringify(userProgram), function (rep) {
+                            if (rep.result === 1) {
+                                tableStart();
+                                layer.close(addAppUserDialog);
+                                layer.msg(' 修 改 成 功 ', {
+                                    icon: 1,
+                                    time: 1200
+                                });
+                            } else {
+                                layer.msg(' 修 改 失 败', {
+                                    icon: 2,
+                                    time: 1200,
+                                });
+                            }
+                        });
                     } else {
                         layer.msg('抱歉,两次密码不一致！', {
                             time: 1500,
@@ -317,11 +362,98 @@ define(function (require, exports, module) {
             paginationDetailHAlign: 'right',
             onClickRow: function (row) {
                 // 获取到用户
-                var rowUserLoginName = row.app_user_loginname;
-
+                userFlag = 0;
+                rowUserLoginName = row.app_user_loginname;
+                api.app.appUser.getSingleAppUser(row.app_user_loginname, function (rep) {
+                    getSetFormValue(row, rep.data);
+                });
             }
         });
     }
 
+    function getSetFormValue(rowUser, userProgram) {
+        var dialogTitle = '';
+        if (userFlag) {
+            // 新增
+            dialogTitle = '新增app用户';
+            $('.form-control.app-user-pwd').val('');
+            $('.form-control.app-user-pwd-sure').val('');
+            $('.form-control.app-user-name').val('');
+            $('.form-control.app-user-expiration-time').val('');
+            $('.form-control.app-user-name').prop('disabled', false);
 
+            var domValue = [];
+            domValue.push('<div class="program-context-item">');
+            domValue.push('<div class="program-name">');
+            domValue.push('<input type="text" class="form-control" placeholder="频道" value="推荐">');
+            domValue.push('</div>');
+            domValue.push('<div class="program-module">');
+            domValue.push('</div>');
+            domValue.push('<div class="program-operation" style="text-align: center">');
+            domValue.push('<span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>');
+            domValue.push('<span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>');
+            domValue.push('</div>');
+            domValue.push('</div>');
+            domValue.push('<div class="program-context-item">');
+            domValue.push('<div class="program-name">');
+            domValue.push('<input type="text" class="form-control" placeholder="频道" value="预警">');
+            domValue.push('</div>');
+            domValue.push('<div class="program-module">');
+            domValue.push('</div>');
+            domValue.push('<div class="program-operation" style="text-align: center">');
+            domValue.push('<span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>');
+            domValue.push('<span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>');
+            domValue.push('</div>');
+            domValue.push('</div>');
+            domValue.push('<div class="program-context-item">');
+            domValue.push('<div class="program-name">');
+            domValue.push('<input type="text" class="form-control" placeholder="频道" value="聚焦">');
+            domValue.push('</div>');
+            domValue.push('<div class="program-module">');
+            domValue.push('</div>');
+            domValue.push('<div class="program-operation" style="text-align: center">');
+            domValue.push('<span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>');
+            domValue.push('<span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>');
+            domValue.push('</div>');
+            domValue.push('</div>');
+            $('.program-context').empty();
+            $('.program-context').append(domValue.join(''));
+        } else {
+            // 修改
+            var newProgram = [];
+            dialogTitle = '修改app用户';
+            $('.form-control.app-user-name').prop('disabled', true);
+            $('.form-control.app-user-name').val(rowUser.app_user_loginname);
+            $('.form-control.app-user-expiration-time').val(rowUser.app_user_overdue_time);
+            for (var i = 0, userProgramLen = userProgram.length; i < userProgramLen; i++) {
+                var programName = userProgram[i].app_program_name;
+                var appModuleNames = userProgram[i].app_module_names.split(",");
+                var appModuleIds = userProgram[i].app_module_ids.split(",");
+                newProgram.push('<div class="program-context-item">');
+                newProgram.push('<div class="program-name">');
+                newProgram.push('<input type="text" class="form-control" placeholder="频道" value="' + programName + '">');
+                newProgram.push('</div>');
+                newProgram.push('<div class="program-module">');
+                for (var j = 0, appModuleIdsLen = appModuleIds.length; j < appModuleIdsLen; j++) {
+                    newProgram.push('<span class="label label-primary span-icon-cursor module-tag" module-tag-id="' + appModuleIds[j] + '">');
+                    newProgram.push('' + appModuleNames[j] + '&nbsp;&nbsp;');
+                    newProgram.push('<span class="glyphicon  glyphicon-remove"></span></span>');
+                }
+                newProgram.push('</div>');
+                newProgram.push('<div class="program-operation" style="text-align: center">');
+                newProgram.push('<span class="glyphicon glyphicon-plus span-green span-icon-cursor add-app-module"></span>');
+                newProgram.push('<span class="glyphicon glyphicon-remove span-red span-icon-cursor module-remove"></span>');
+                newProgram.push('</div>');
+                newProgram.push('</div>');
+            }
+            $('.program-context').empty();
+            $('.program-context').append(newProgram.join(''));
+        }
+        addAppUserDialog = layer.open({
+            title: dialogTitle,
+            type: 1,
+            area: ['60%', '85%'], //宽高
+            content: $('#add-app-user-dialog')
+        });
+    }
 });

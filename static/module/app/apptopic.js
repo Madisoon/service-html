@@ -279,6 +279,7 @@ define(function (require, exports, module) {
             newNode = {topic_name: "新增标签", topic_pid: 0};
         }
         api.movement.topicFocusManage.insertTopic(JSON.stringify(newNode), function (rep) {
+            console.log(rep);
             if (rep.result > 0) {
                 initializeTree();
                 layer.msg(' 添 加 成 功 ！', {

@@ -426,7 +426,7 @@ define(function (require, exports, module) {
                         topicInfo: topicInfo,
                     }, success);
                 },
-                insertTopic: function (topicId, topicInfo, success) {
+                insertTopic: function (topicInfo, success) {
                     getDataWay(url + "insertTopic", {
                         topicInfo: topicInfo
                     }, success);
@@ -598,9 +598,9 @@ define(function (require, exports, module) {
                         areaId: areaId
                     }, success);
                 },
-                updateAppUser: function (appUserId, appUserInfo, appUserProgram, success) {
+                updateAppUser: function (appUserLoginName, appUserInfo, appUserProgram, success) {
                     getDataWay(url + "updateAppUser", {
-                        appUserId: appUserId,
+                        appUserLoginName: appUserLoginName,
                         appUserInfo: appUserInfo,
                         appUserProgram: appUserProgram
                     }, success);
@@ -610,6 +610,11 @@ define(function (require, exports, module) {
                         appUserLoginName: appUserLoginName
                     }, success);
                 },
+                getSingleAppUser: function (appUserLoginName, success) {
+                    getDataWay(url + "getSingleAppUser", {
+                        appUserLoginName: appUserLoginName
+                    }, success);
+                }
             }
         }
     }());

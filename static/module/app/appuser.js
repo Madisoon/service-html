@@ -169,11 +169,11 @@ define(function (require, exports, module) {
                 for (var i = 0, repLen = rep.length; i < repLen; i++) {
                     if (rep[i].app_module_type === "0") {
                         moduleDom.push('<label class="checkbox-inline">');
-                        moduleDom.push('<input class="module-checkbox" type="checkbox" value="' + rep[i].id + '" data-module-name="' + rep[i].app_module_name + '" >' + rep[i].app_module_name + '(<span class="span-red">普通数据</span>)');
+                        moduleDom.push('<input class="module-checkbox" type="checkbox"  data-module-type = "' + rep[i].app_module_type + '"  value="' + rep[i].id + '" data-module-name="' + rep[i].app_module_name + '" >' + rep[i].app_module_name + '(<span class="span-red">普通数据</span>)');
                         moduleDom.push('</label>');
                     } else {
                         moduleDom.push('<label class="checkbox-inline">');
-                        moduleDom.push('<input class="module-checkbox" type="checkbox" value="' + rep[i].id + '" data-module-name="' + rep[i].app_module_name + '" >' + rep[i].app_module_name + '(<span class="span-green">焦点数据</span>)');
+                        moduleDom.push('<input class="module-checkbox" type="checkbox"  data-module-type = "' + rep[i].app_module_type + '"    value="' + rep[i].id + '" data-module-name="' + rep[i].app_module_name + '" >' + rep[i].app_module_name + '(<span class="span-green">焦点数据</span>)');
                         moduleDom.push('</label>');
                     }
                 }
@@ -184,16 +184,30 @@ define(function (require, exports, module) {
 
     $('#add-app-module-btn').click(function () {
         var addModuleDom = [];
+        var moduleType = [];
         $('.module-checkbox:checked').each(function () {
             var moduleName = $(this).attr('data-module-name');
+            moduleType.push($(this).attr('data-module-type'));
             var moduleId = $(this).val();
             addModuleDom.push('<span class="label label-primary span-icon-cursor module-tag" module-tag-id="' + moduleId + '">');
             addModuleDom.push('' + moduleName + '&nbsp;&nbsp;');
             addModuleDom.push('<span class="glyphicon  glyphicon-remove"></span></span>');
         });
         layer.close(addAppModuleDialog);
-        $($that).parent().parent().find('.program-module').empty();
-        $($that).parent().parent().find('.program-module').append(addModuleDom.join(''));
+        var flag = true;
+        for (var i = 0, moduleTypeLen = moduleType.length; i < moduleTypeLen; i++) {
+            if (moduleType[i] !== moduleType[0]) {
+                flag = false;
+            }
+        }
+        if (flag) {
+            $($that).parent().parent().find('.program-module').empty();
+            $($that).parent().parent().find('.program-module').append(addModuleDom.join(''));
+        } else {
+            layer.msg('抱歉，模块类型不同，不可提交！', {
+                time: 1800
+            });
+        }
     });
 
     function getFormValue() {
@@ -214,8 +228,10 @@ define(function (require, exports, module) {
         $('.program-context-item').each(function () {
             var userModule = {};
             var moduleTag = [];
+            var programType = '';
             $(this).find('.program-module .module-tag').each(function () {
                 moduleTag.push($(this).attr("module-tag-id"));
+
             });
             userModule.programName = $(this).find('.program-name .form-control').val();
             userModule.programModule = moduleTag;
@@ -456,4 +472,8 @@ define(function (require, exports, module) {
             content: $('#add-app-user-dialog')
         });
     }
+
+    $('body').on('click', '.module-tag', function () {
+        $(this).remove();
+    });
 });

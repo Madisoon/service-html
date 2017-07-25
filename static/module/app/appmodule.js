@@ -383,11 +383,8 @@ define(function (require, exports, module) {
                 } else {
                     console.log("执行");
                     node = treeObj.getNodeByParam("id", tagIds[i]);
-                    //设置选择状态
                     treeObj.selectNode(node);
-                    //改变被选择的状态
                     treeObj.checkNode(node, true, true);
-                    //更新状态
                     treeObj.updateNode(node);
                     tagDom.push('<span class="label label-primary span-icon-cursor info-tag" info-tag-id="' + tagIds[i] + '">');
                     tagDom.push('' + tagNames[i] + '&nbsp;&nbsp;');
@@ -409,6 +406,4 @@ define(function (require, exports, module) {
             content: $('#topic-add-dialog')
         });
     }
-
-
 });

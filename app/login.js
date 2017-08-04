@@ -77,8 +77,8 @@ define(function (require, exports, module) {
             $("#user_password").val($.cookie("loginpwd"));
         } else {
             $("#remember_password").prop('checked', false);
-            $("#input_loginname").val("");
-            $("#input_loginpwd").val("");
+            $("#user_password").val("");
+            $("#user_password").val("");
         }
     }
 

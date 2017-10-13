@@ -236,7 +236,7 @@ textarea::-moz-placeholder {
 /*弹出统一宽度*/
 .dialog-context-width {
   width: 98%;
-  min-height: 100%;
+  min-height: 98%;
   padding: 8px;
   display: flex;
   flex-direction: column; }
@@ -245,9 +245,10 @@ textarea::-moz-placeholder {
   text-align: right;
   margin-bottom: 8px; }
 
+/*
 .dialog-context-show {
-  flex: 1; }
-
+  flex: 1;
+}*/
 /** common style end **/
 #configure-manage-html {
   display: flex;

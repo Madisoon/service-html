@@ -445,8 +445,26 @@ define(function (require, exports, module) {
                 getAllTopic: function (success) {
                     getDataWay(url + "getAllTopic", {}, success);
                 },
+            },
+            announcementManage: {
+                postAnnouncement: function (title, content, success) {
+                    getDataWay(url + "postAnnouncement", {
+                        title: title,
+                        content: content
+                    }, success);
+                },
+                getAnnouncement: function (terraceData, tagIds, areaId, baseTag, success) {
+                    getDataWay(url + "getAnnouncement", {
+                        terraceData: terraceData,
+                        tagIds: tagIds,
+                        areaId: areaId,
+                        baseTag: baseTag
+                    }, success);
+                },
+                resetAnnouncement: function (success) {
+                    getDataWay(url + "resetAnnouncement", {}, success);
+                }
             }
-
         }
     }());
 

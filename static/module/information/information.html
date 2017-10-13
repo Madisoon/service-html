@@ -63,10 +63,6 @@
             margin-top: 5px;
         }
 
-        .button {
-            margin-bottom: -4%;
-        }
-
         .top-header .opertion {
             margin-left: 1%;
         }
@@ -85,12 +81,6 @@
 
         .input input, .input select, .input button {
             margin: 1%;
-        }
-
-        .center-body {
-            margin-top: 8px;
-            height: 100%;
-            overflow-y: auto;
         }
 
         #add-infor {
@@ -238,6 +228,10 @@
             margin-bottom: 6px;
         }
 
+        #all-infor {
+            margin-top: 8px;
+        }
+
     </style>
 </head>
 <body>
@@ -301,7 +295,7 @@
             </select>
         </div>
     </div>
-    <div class="button">
+    <div class="operation-button">
         <button type="button" class="btn opertion btn-primary" id="add-infor-btn">新建信息</button>
         <button type="button" class="btn opertion btn-danger" id="delete-infor-btn">删除信息</button>
         <button type="button" class="btn opertion btn-success" id="post-infor-btn">手工发送</button>
@@ -312,13 +306,10 @@
             <span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;筛选
         </button>
     </div>
-    <section class="center-body">
-        <div class="table">
-            <table class="table table-condensed" id="all-infor"></table>
-        </div>
-    </section>
+    <div class="table">
+        <table class="table table-condensed" id="all-infor"></table>
+    </div>
     <div id="add-infor" class="dialog-context-width" style="display: none">
-
         <form class="form-horizontal dialog-context-show" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">写 入：</label>

@@ -411,6 +411,7 @@ define(function (require, exports, module) {
         $('.form-control.infor-site').val(contactValue.substring(contactValue.indexOf('站点:') + 3));
         $('input[name=info-resource][value=' + contactValue.substring(contactValue.indexOf('来源:') + 3, contactValue.indexOf('属性:')).trim() + ']').prop('checked', true);
     });
+
     /**
      * 获取筛选表单的值
      * @returns {{}}
@@ -437,6 +438,7 @@ define(function (require, exports, module) {
     }
 
     tableStart();
+
     /**
      * 表格初始化
      */
@@ -505,20 +507,14 @@ define(function (require, exports, module) {
                 field: 'user_name',
                 searchable: true,
                 title: '创建者'
-            }, {
-                field: 'infor_status',
-                title: '发送状态'
             }],
             pageNumber: 1,
-            pageSize: 10,
+            pageSize: 12,
             dataField: 'data',//指定后台的数据的名称
             undefinedText: '--',
             sidePagination: 'server',
-            showColumns: 'true',
             classes: 'table table-bordered table-hover',
             method: 'post',
-            showExport: true,                     //是否显示导出
-            exportDataType: "basic",
             url: '' + api.baseUrl + '/getAllInfor',
             queryParamsType: "undefined",
             queryParams: function (params) {

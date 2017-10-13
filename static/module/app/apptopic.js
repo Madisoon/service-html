@@ -210,6 +210,7 @@ define(function (require, exports, module) {
     var zNodes = null;
     var zTree, rMenu;
     initializeTree();
+
     function initializeTree() {
         api.movement.topicFocusManage.getAllTopic(function (rep) {
             zNodes = rep;

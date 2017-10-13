@@ -58,7 +58,8 @@ define(function (require, exports, module) {
                     //更新状态
                     treeObj.updateNode(node);
                 } else {
-                    if (id == '') {
+                    if (id === '') {
+                        console.log(treeObj)
                         treeObj.checkAllNodes(false);
                     } else {
                         //根据id改变标签选中

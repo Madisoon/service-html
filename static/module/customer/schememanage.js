@@ -348,8 +348,6 @@ define(function (require, exports, module) {
             showColumns: 'true',
             classes: 'table table-bordered table-hover',
             method: 'post',
-            showExport: true,                     //是否显示导出
-            exportDataType: "basic",
             url: '' + api.baseUrl + '/getAllSchemeChoose',
             queryParamsType: "undefined",
             queryParams: function (params) {

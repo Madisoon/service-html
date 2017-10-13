@@ -196,7 +196,7 @@ define(function (require, exports, module) {
             moduleDom.push(' module-id="' + $(this).val() + '">' + $(this).attr("moduleName") + '&nbsp;&nbsp;<span ');
             moduleDom.push(' class="glyphicon glyphicon-remove"></span></span> ');
         });
-        $('#terrace-module').empty();
+        /*$('#terrace-module').empty();*/
         $('#terrace-module').append(moduleDom.join(''));
         $('#terrace-module .other-module').unbind('click').click(function () {
             $(this).addClass(' animated zoomOut ');

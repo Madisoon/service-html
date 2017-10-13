@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/animate/animate.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/datepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <title>公告推送</title>
+    <style>
+        .announcement-push-html {
+            padding: 8px;
+        }
+
+        .table {
+            margin-top: 8px;
+        }
+
+        .scheme-choose-input {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .scheme-choose-input .form-group {
+            margin-left: 1%;
+        }
+    </style>
+</head>
+<body>
+<div class="announcement-push-html">
+    <div class="scheme-choose-input" style="display: none">
+        <div class="form-group first">
+            <input type="text" class="form-control announcement-title" placeholder="标题">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control announcement-content" placeholder="内容">
+        </div>
+        <div class="form-group first">
+            <input type="text" class="form-control announcement-start-time" placeholder="开始时间">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control announcement-end-time" placeholder="结束时间">
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" id="post-announcement">发布公告</button>
+    <button type="button" class="btn btn-success" id="reset-announcement">重置公告</button>
+    <button type="button" class="btn btn-danger" id="choose-scheme">筛选公告栏</button>
+    <button type="button" class="btn btn-warning" id="choose-scheme-sure">筛选公告</button>
+    <div class="table">
+        <table class="table table-condensed" id="announcement-table"></table>
+    </div>
+    <div id="post-announcement-dialog" class="dialog-context-width" style="display:  none">
+        <div class="dialog-context-show">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公告标题</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control title" placeholder="公告标题">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公告内容</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control content" rows="10" placeholder="公告内容"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-primary" id="post-announcement-btn">确认提交</button>
+        </div>
+    </div>
+</div>
+<script>
+    seajs.use('./announcementpush');
+</script>
+</body>
+</html>

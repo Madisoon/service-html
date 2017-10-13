@@ -285,7 +285,7 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
 /*弹出统一宽度*/
 .dialog-context-width {
   width: 98%;
-  min-height: 100%;
+  min-height: 98%;
   padding: 8px;
   display: flex;
   flex-direction: column;
@@ -296,9 +296,10 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   margin-bottom: 8px;
 }
 
+/*
 .dialog-context-show {
   flex: 1;
-}
+}*/
 
 /** common style end **/
 

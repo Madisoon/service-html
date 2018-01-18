@@ -296,10 +296,9 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   margin-bottom: 8px;
 }
 
-/*
 .dialog-context-show {
   flex: 1;
-}*/
+}
 
 /** common style end **/
 
@@ -459,7 +458,7 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
 
 #scheme-manage-html {
   display: flex;
-  width: 98%;
+  width: 100%;
   height: 100%;
   padding: 8px;
   .left-content {
@@ -483,6 +482,11 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   }
 
   #scheme-tag-show .scheme-tag {
+    margin-left: 1%;
+    margin-top: 8px;
+  }
+
+  #terrace-tag-show .terrace-tag {
     margin-left: 1%;
     margin-top: 8px;
   }
@@ -516,6 +520,7 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
 #terrace-customer-html {
   display: flex;
   padding: 8px;
+  height: 100%;
   header {
     display: flex;
   }
@@ -525,11 +530,13 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   }
 
   .left-area {
-    flex: 1 1 10%;
+    height: 98%;
+    overflow-y: auto;
+    flex: 1 1 14%;
   }
 
   .right-context {
-    flex: 1 1 88%;
+    flex: 1 1 84%;
     margin-left: 2%;
   }
 

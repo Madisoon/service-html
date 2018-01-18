@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
+    <link href="../../header.css" rel="stylesheet" type="text/css">
+    <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../../spm_modules/bootstrap-table-master/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    <script src="../../../spm_modules/datepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="../../../spm_modules/layer/layer.js"></script>
+    <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
+    <title>app-日志</title>
+    <style>
+        .app-note-html {
+            padding: 8px;
+        }
+
+        .table {
+            margin-top: 6px;
+        }
+
+        .operation-btn {
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="app-note-html">
+    <div class="note-search">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control note-create" placeholder="用户">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control note-start-time" placeholder="开始时间">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control note-end-time" placeholder="结束时间">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control note-title" placeholder="关键词">
+            </div>
+            <div class="form-group">
+                <select class="form-control note-type">
+                    <option value="all">全部</option>
+                    <option value="1">登陆</option>
+                    <option value="2">查询</option>
+                    <option value="3">详情</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="operation-btn">
+        <button type="button" class="btn btn-primary" id="senior-search">高级搜索</button>
+        <button type="button" class="btn btn-success" id="excel-export">Excel导出</button>
+    </div>
+    <div class="table">
+        <table class="table table-condensed" id="all-note-table"></table>
+    </div>
+</div>
+<script>
+    seajs.use('./appnote');
+</script>
+</body>
+</html>

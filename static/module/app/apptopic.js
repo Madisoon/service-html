@@ -10,8 +10,11 @@ define(function (require, exports, module) {
     var flag = 1;
     var addReportDialog = {};
     var topicContextId = "";
-
-    var ue = UE.getEditor('editor');
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.customConfig.pasteFilterStyle = false;
+    editor.customConfig.uploadImgServer = 'http://127.0.0.1:8080/guidance/uploadOrderFile';
+    editor.create();
 
     function qqTableStart() {
         $('#topic-context-table').bootstrapTable('destroy');
@@ -118,7 +121,8 @@ define(function (require, exports, module) {
     $('#post-topic-btn').click(function () {
         var topicTitle = $('.form-control.topic-title').val();
         var topicAbstract = $('.form-control.topic-abstract').val();
-        var topicContext = ue.getContent();
+        var topicContext = editor.txt.html();
+        console.log(topicContext);
         var topicInfo = {
             topic_title: topicTitle,
             topic_abstract: topicAbstract,
@@ -163,7 +167,7 @@ define(function (require, exports, module) {
 
     $('#topic-show-btn').click(function () {
         $('#topic-show-dialog').empty();
-        $('#topic-show-dialog').append(ue.getContent());
+        $('#topic-show-dialog').append(editor.txt.html());
         layer.open({
             title: '编辑报告',
             type: 1,
@@ -346,18 +350,16 @@ define(function (require, exports, module) {
 
     function setGetFormValue(row) {
         if (flag) {
-            ue.ready(function () {//编辑器初始化完成再赋值
-                ue.setContent('');
-            });
+            editor.txt.html('');
             $('.form-control.topic-title').val("");
             $('.form-control.topic-abstract').val("");
         } else {
             topicContextId = row.id;
+            console.log(row);
+            editor.txt.html(row.topic_context);
             $('.form-control.topic-title').val(row.topic_title);
             $('.form-control.topic-abstract').val(row.topic_abstract);
-            ue.ready(function () {//编辑器初始化完成再赋值
-                ue.setContent(row.topic_context);
-            });
+
         }
     }
 

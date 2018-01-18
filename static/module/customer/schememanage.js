@@ -21,6 +21,7 @@ define(function (require, exports, module) {
     var schemeType;
     var chooseId = [];
     var chooseDataTable;
+    var chooseTerraceDialog = {};
     // 树的初始化设置
     var setting = {
         callback: {
@@ -60,6 +61,23 @@ define(function (require, exports, module) {
         tableStart();
     };
 
+    /**
+     * 获取平台客户标签的接口，因为没做反向代理，做一次中转
+     */
+    api.movement.schemeManage.getTerraceCustomerTag(function (rep) {
+        var tagData = rep.value;
+        var tagDataLen = rep.value.length;
+        var tagDom = [];
+        for (var i = 0; i < tagDataLen; i++) {
+            tagDom.push('<label class="checkbox-inline">  ' +
+                '            <input type="checkbox" class="terrace-tag-id" data-name = "' + tagData[i].name + '" value="' + tagData[i].id + '"> ' + tagData[i].name + '' +
+                '            </label>');
+        }
+        $('.terrace-tag-show').empty();
+        $('.terrace-tag-show').append(tagDom.join(''));
+
+    });
+
     $('#add-scheme').unbind('click').click(function () {
         $('#scheme-post-btn').prop('disabled', false);
         getSetForm("", true);
@@ -71,6 +89,7 @@ define(function (require, exports, module) {
             content: $('#scheme-add-dialog')
         });
     });
+
     $('#add-scheme-tag').unbind('click').click(function () {
         addSchemeTag = layer.open({
             title: '标 签 选 择',
@@ -82,6 +101,31 @@ define(function (require, exports, module) {
                 layer.setTop(layero); //重点2
             }
         });
+    });
+
+    $('#add-terrace-tag').click(function () {
+        chooseTerraceDialog = layer.open({
+            title: '选择平台标签',
+            type: 1,
+            area: ['52%', '80%'], //宽高
+            content: $('#choose-terrace-tag-dialog')
+        });
+        $('.terrace-tag-id').prop('checked', false);
+    });
+
+    $('#terrace-tag-btn').click(function () {
+        var domTag = [];
+        $('.terrace-tag-id:checked').each(function () {
+            domTag.push('<span class="label label-success span-icon-cursor terrace-tag" tag-name="' + $(this).attr('data-name') + '" tag-id="' + $(this).val() + '">' + $(this).attr('data-name') + '&nbsp;&nbsp;' +
+                '<span class="glyphicon  glyphicon-remove"></span></span>');
+        });
+        $('#terrace-tag-show').empty();
+        $('#terrace-tag-show').append(domTag.join(''));
+        layer.close(chooseTerraceDialog);
+    });
+
+    $('#terrace-tag-show').on('click', '.terrace-tag', function () {
+        $(this).remove();
     });
 
     $('#choose-scheme').unbind('click').click(function () {
@@ -215,7 +259,8 @@ define(function (require, exports, module) {
     $('#scheme-post-btn').unbind('click').click(function () {
         var schemeData = getSchemeValue();
         var tagBase = tagShow.tagOperation.getTreeValue(false, 'tag-tree');
-
+        console.log("打印平台标签");
+        console.log(schemeData.terraceTagId);
         if (schemeData.schemeTagId.length == 0 ||
             schemeData.schemeData.scheme_name == "" ||
             schemeData.schemeData.scheme_plan_id == "") {
@@ -229,7 +274,7 @@ define(function (require, exports, module) {
         } else {
             layer.close(addSchemeDialog);
             if (schemeType) {
-                api.movement.schemeManage.insertScheme(JSON.stringify(schemeData.schemeData), schemeData.schemeTagId.join(','), areaId, tagBase.join(','), function (rep) {
+                api.movement.schemeManage.insertScheme(JSON.stringify(schemeData.schemeData), schemeData.terraceTagId.join(','), schemeData.terraceTagName.join(','), schemeData.schemeTagId.join(','), areaId, tagBase.join(','), function (rep) {
                     if (rep.result) {
                         tableStart();
                         layer.msg(' 添 加 成 功 ！', {
@@ -244,7 +289,7 @@ define(function (require, exports, module) {
                     }
                 });
             } else {
-                api.movement.schemeManage.updateScheme(schemeId, schemeData.schemeTagId.join(','), JSON.stringify(schemeData.schemeData), tagBase.join(','), function (rep) {
+                api.movement.schemeManage.updateScheme(schemeId, schemeData.schemeTagId.join(','), schemeData.terraceTagId.join(','), schemeData.terraceTagName.join(','), JSON.stringify(schemeData.schemeData), tagBase.join(','), function (rep) {
                     if (rep.result) {
                         tableStart();
                         layer.msg(' 修 改 成 功 ！', {
@@ -273,6 +318,8 @@ define(function (require, exports, module) {
         var allData = {
             schemeData: {},
             schemeTagId: [],
+            terraceTagId: [],
+            terraceTagName: []
         };
         var schemeGrade = [];
         $('.scheme-grade:checked').each(function () {
@@ -293,10 +340,17 @@ define(function (require, exports, module) {
         $('.label-primary.scheme-tag').each(function () {
             allData.schemeTagId.push($(this).attr('tag-id'));
         });
+        $('.label-success.terrace-tag').each(function () {
+            allData.terraceTagId.push($(this).attr('tag-id'));
+        });
+        $('.label-success.terrace-tag').each(function () {
+            allData.terraceTagName.push($(this).attr('tag-name'));
+        });
         return allData;
     }
 
     tableStart();
+
     function tableStart() {
         $('#all-scheme-table').bootstrapTable('destroy');
         $('#all-scheme-table').bootstrapTable({
@@ -318,14 +372,14 @@ define(function (require, exports, module) {
             }, {
                 field: 'scheme_no_imp',
                 title: '排除关键词'
-            }, {
+            }/*, {
                 field: 'scheme_link',
                 searchable: true,
                 title: '匹配地址'
-            }, {
+            }*//*, {
                 field: 'scheme_no_link',
                 title: '排除地址'
-            }, {
+            }*/, {
                 field: 'scheme_grade',
                 title: '信息级别'
             }, {
@@ -334,7 +388,10 @@ define(function (require, exports, module) {
             }, {
                 field: 'scheme_time',
                 searchable: true,
-                title: '修改时间'
+                title: '修改时间',
+                formatter: function (value, row, index) {
+                    return value.substring(0, 10);
+                }
             }, {
                 field: 'user_name',
                 searchable: true,
@@ -387,6 +444,7 @@ define(function (require, exports, module) {
         });
     }
 
+
     //表单赋值或者清空
     function getSetForm(row, flag) {
         console.log(row);
@@ -404,7 +462,23 @@ define(function (require, exports, module) {
             $('#plan-select').val("");
             $('#scheme-interval').val("5");
             $('.scheme-status[value=0]').prop('checked', true);
+            $('#terrace-tag-show').empty();
         } else {
+            api.movement.schemeManage.getTerraceTagBySchemeId(row.id, function (rep) {
+                $('#terrace-tag-show').empty();
+                if (rep.result) {
+                    var terraceTagData = rep.data;
+                    var terraceTagDataLen = terraceTagData.length;
+                    var domTag = [];
+                    for (var i = 0; i < terraceTagDataLen; i++) {
+                        domTag.push('<span class="label label-success span-icon-cursor terrace-tag" tag-name="' + terraceTagData[i].tag_name + '" tag-id="' + terraceTagData[i].terrace_customer_id + '">' + terraceTagData[i].tag_name + '&nbsp;&nbsp;' +
+                            '<span class="glyphicon  glyphicon-remove"></span></span>');
+                    }
+                    $('#terrace-tag-show').append(domTag.join(''));
+                }
+
+            });
+            $('#terrace-tag-show').empty();
             $('.scheme-grade').prop('checked', false);
             $('#scheme-name').val(row.scheme_name);
             $('#scheme-imp').val(row.scheme_imp);

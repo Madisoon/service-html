@@ -18,6 +18,7 @@
             this.writeAreaFieldDom = function () {
                 getAreaField();
             };
+
             //获取一级菜单
             function getAreaField() {
                 $.ajax({

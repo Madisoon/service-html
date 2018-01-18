@@ -359,7 +359,7 @@ define(function (require, exports, module) {
                 title: '创建时间'
             }],
             pageNumber: 1,
-            pageSize: 20,
+            pageSize: 12,
             dataField: 'data',//指定后台的数据的名称
             undefinedText: '--',
             sidePagination: 'client',

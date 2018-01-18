@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
     <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link href="../../../spm_modules/wangEditor-3.0.12/release/wangEditor.min.css" rel="stylesheet" type="text/css">
     <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
     <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
     <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
@@ -13,10 +14,8 @@
     <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
     <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
     <script src="../../../spm_modules/ztree/jquery.ztree.exedit.min.js"></script>
+    <script src="../../../spm_modules/wangEditor-3.0.12/release/wangEditor.js"></script>
     <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
-    <script src="../../../spm_modules/ueditor/ueditor.config.js"></script>
-    <script src="../../../spm_modules/ueditor/ueditor.all.min.js"></script>
-    <script src="../../../spm_modules/ueditor/lang/zh-cn/zh-cn.js"></script>
     <title>Title</title>
     <style>
         .focus-topic-html {
@@ -134,8 +133,9 @@
             width: 100%;
             position: fixed;
             z-index: 5;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.3);
         }
+
         #topic-post-dialog {
             height: 90%;
             margin-top: 2.5%;
@@ -145,6 +145,7 @@
             overflow-y: auto;
             position: relative;
         }
+
         .layui-yq-layer-title {
             padding: 0 80px 0 20px;
             height: 42px;
@@ -162,9 +163,11 @@
     <div id="topic-post-dialog">
         <div class="layui-yq-layer-title">编辑报告
         </div>
-        <span class="layui-layer-setwin"><a id="close-add-topicContext" class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span>
+        <span class="layui-layer-setwin"><a id="close-add-topicContext"
+                                            class="layui-layer-ico layui-layer-close layui-layer-close1"
+                                            href="javascript:;"></a></span>
 
-        <div class="dialog-context-width" >
+        <div class="dialog-context-width">
             <div class="topic-context">
                 <form class="form-horizontal">
                     <div class="form-group">
@@ -185,7 +188,6 @@
             </div>
 
             <div class="display-btn">
-                <button type="button" class="btn btn-success" id="cancel-topic-btn">取消</button>
                 <button type="button" class="btn btn-info" id="topic-show-btn">预览</button>
                 <button type="button" class="btn btn-primary" id="post-topic-btn">确认提交</button>
             </div>

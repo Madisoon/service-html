@@ -323,7 +323,15 @@ define(function (require, exports, module) {
         }
         searchInfoData = infoChooseData;
         api.information.infoShow.exportData(searchTagId.join(','), JSON.stringify(searchInfoData), customerName, $(this).attr("exportType"), function (rep) {
-            window.open('http://118.178.237.219:8080/dummyPath/' + rep.result);
+            var filePath = rep.result;
+            if (filePath === '') {
+                layer.msg('抱歉!没有可导出的数据', {
+                    time: 1500
+                });
+            } else {
+                window.open('http://118.178.237.219:8080/dummyPath/' + filePath);
+            }
+
         });
     });
 
@@ -629,6 +637,9 @@ define(function (require, exports, module) {
     function getSetFormValue(row, flag) {
         tagShow.tagOperation.writeTagData(false, '', 'tag-tree');
         if (flag) {
+            $('#id_select > option').attr('select', false);
+            $('.dropdown-menu.inner.selectpicker li').removeClass('selected active');
+            $('.filter-option.pull-left').text('');
             $('.form-control.infor-title').val("");
             $('.form-control.infor-context').val("");
             $('input[name=type-radio][value = ' + 0 + ']').prop('checked', true);
@@ -669,4 +680,38 @@ define(function (require, exports, module) {
             $('.tag').append(dom.join(''));
         }
     }
+
+    api.tag.tagShow.getChildTag(function (rep) {
+        var tagData = rep.data;
+        var tagLen = tagData.length;
+        var dom = [];
+        for (var i = 0; i < tagLen; i++) {
+            dom.push('<option value="' + tagData[i].id + '">' + tagData[i].name + '</option>');
+        }
+        dom.push('</optgroup>');
+        $('#id_select').append(dom.join(''));
+        $('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+        });
+    });
+    $('#id_select').change(function () {
+        $('.tag').empty();
+        $('#id_select > option:selected').each(function () {
+            $('.tag').append('<span class="label other-tag label-warning span-icon-cursor" tag-id="' + $(this).val() + '">' + $(this).text() + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-remove"></span></span>');
+        })
+    });
+
+    $('.tag', 'click', '.label', function () {
+        $(this).addClass('animated zoomOut');
+        var tagIdTop = $(this).attr("tag-id");
+        tagShow.tagOperation.writeTagData(false, tagIdTop, 'tag-tree');
+        $('.my-tag-show .label[tag-id = ' + tagIdTop + ']').removeClass('label-primary');
+        $('.my-tag-show .label[tag-id = ' + tagIdTop + ']').addClass('label-danger');
+        $('.my-tag-show .label[tag-id = ' + tagIdTop + ']').children().removeClass('glyphicon-ok');
+        $('.my-tag-show .label[tag-id = ' + tagIdTop + ']').children().addClass('glyphicon-arrow-up');
+        var $this = this;
+        setTimeout(function () {
+            $($this).remove();
+        }, 500);
+    });
 });

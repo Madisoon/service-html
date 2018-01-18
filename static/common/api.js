@@ -305,9 +305,11 @@ define(function (require, exports, module) {
                 }
             },
             schemeManage: {
-                insertScheme: function (schemeData, tagIds, areaId, baseTag, success) {
+                insertScheme: function (schemeData, terraceTagIds, terraceTagNames, tagIds, areaId, baseTag, success) {
                     getDataWay(url + "insertScheme", {
                         schemeData: schemeData,
+                        terraceTagIds: terraceTagIds,
+                        terraceTagName: terraceTagNames,
                         tagIds: tagIds,
                         areaId: areaId,
                         baseTag: baseTag
@@ -316,16 +318,26 @@ define(function (require, exports, module) {
                 deleteSchemeId: function (schemeId, success) {
                     getDataWay(url + "deleteSchemeId", {schemeId: schemeId}, success);
                 },
-                updateScheme: function (schemeId, tagIds, schemeData, baseTag, success) {
+                updateScheme: function (schemeId, tagIds, terraceTagId, terraceTagNames, schemeData, baseTag, success) {
                     getDataWay(url + "updateScheme", {
                         schemeId: schemeId,
                         tagIds: tagIds,
+                        terraceTagId: terraceTagId,
+                        terraceTagName: terraceTagNames,
                         schemeData: schemeData,
                         baseTag: baseTag
                     }, success);
                 },
                 getAllSchemeById: function (schemeId, success) {
                     getDataWay(url + "getAllSchemeById", {schemeId: schemeId}, success);
+                },
+                getTerraceCustomerTag: function (success) {
+                    getDataWay(url + "getTerraceCustomerTag", {}, success);
+                },
+                getTerraceTagBySchemeId: function (schemeId, success) {
+                    getDataWay(url + "getTerraceTagBySchemeId", {
+                        schemeId: schemeId
+                    }, success);
                 }
             },
             severCustomer: {
@@ -560,6 +572,9 @@ define(function (require, exports, module) {
                 },
                 getTypeTag: function (success) {
                     getDataWay(url + "getTypeTag", {}, success);
+                },
+                getChildTag: function (success) {
+                    getDataWay(url + "getChildTag", {}, success);
                 }
             },
             personTag: {
@@ -631,6 +646,11 @@ define(function (require, exports, module) {
                 getSingleAppUser: function (appUserLoginName, success) {
                     getDataWay(url + "getSingleAppUser", {
                         appUserLoginName: appUserLoginName
+                    }, success);
+                },
+                exportAppNoteExcel: function (chooseData, success) {
+                    getDataWay(url + "exportAppNoteExcel", {
+                        chooseData: chooseData
                     }, success);
                 }
             }

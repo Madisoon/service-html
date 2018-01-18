@@ -5,10 +5,15 @@
     <title>Title</title>
     <link rel="stylesheet" href="../../../spm_modules/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css">
     <link href="../../header.css" rel="stylesheet" type="text/css">
+<!--    <link rel="stylesheet" href="../../../spm_modules/bootstrap-select/bootstrap-select.min.css">-->
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
     <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
     <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
     <script src="../../../spm_modules/layer/layer.js"></script>
+<!--    <script src="../../../spm_modules/bootstrap-select/bootstrap-select.min.js"></script>-->
     <script src="../../../spm_modules/jquery/clipboard.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
     <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
     <style>
         #information-post-html {
@@ -79,6 +84,88 @@
         .info-context-item .btn {
             margin-left: 4px;
         }
+
+        #add-infor .my-tag {
+            font-weight: 600;
+            color: #FF4040;
+        }
+
+        form .tag, form .my-tag-show {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        form .tag .label, form .my-tag-show .label {
+            margin-left: 1%;
+            margin-top: 8px;
+        }
+
+        #add-infor .my-tag {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #add-infor .my-tag .label {
+            margin-left: 1%;
+            margin-top: 8px;
+        }
+
+        .infor-search {
+            display: flex;
+            width: 97.5%;
+            margin-left: 2.5%;
+        }
+
+        .infor-search .form-group {
+            margin-left: 8px;
+            margin-bottom: 10px;
+        }
+
+        .ztree li {
+            margin-top: 8px;
+        }
+
+        .ztree * {
+            font-family: '微软雅黑';
+            font-size: 1.1rem;
+        }
+
+        .ztree li a.curSelectedNode {
+            background: #5cb85c;
+            height: 19px;
+            border: 0px #FFB951 solid;
+        }
+
+        #other-tag-choose {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #other-tag-choose .tag-show {
+            flex: 1;
+        }
+
+        #other-tag-choose .tag-show, #search-tag-choose .tag-show {
+            margin-left: 32%;
+        }
+
+        #other-tag-choose .tag-show-word, #search-tag-choose .tag-show-word {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        #other-tag-choose .tag-show-describe, #search-tag-choose .tag-show-describe {
+            font-size: 1.0rem;
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        #add-infor {
+            width: 97%;
+        }
     </style>
 </head>
 <body>
@@ -94,11 +181,153 @@
                 <button type="button" class="btn btn-primary" id="search-infor-data"><span
                         class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;筛选
                 </button>
-                <button type="button" class="btn btn-success" id="add-new-info"><span
+                <button type="button" class="btn btn-success" id="add-infor-btn"><span
                         class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新建信息
                 </button>
             </div>
         </form>
+    </div>
+    <div id="add-infor" class="" style="display: none">
+        <form class="form-horizontal dialog-context-show" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">写 入：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control infor-write" rows="2" placeholder="写 入"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标 题：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control infor-title" placeholder="信息标题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">内 容：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control infor-context" rows="3" placeholder="信息内容"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">链 接：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control infor-link" placeholder="信息链接">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">站 点：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control infor-site" placeholder="站 点">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">信息来源：</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="新闻"> 新闻
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="论坛"> 论坛
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="微博"> 微博
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="博客"> 博客
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="视频"> 视频
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="微信"> 微信
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value=" 移动端"> 移动端
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="海外"> 海外
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="info-resource" value="其它"> 其它
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类 型：</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="type-radio" value="0">
+                        敏感
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="type-radio" value="1">
+                        非敏感
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">等 级：</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="grade-radio" value="1" checked="checked"> 1级
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="grade-radio" value="2"> 2级
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="grade-radio" value="3"> 3级
+                    </label>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-sm-2 control-label">标 签</label>
+                <div class="col-sm-10">
+                    <select id="id_select" class="selectpicker bla bla bli" multiple data-live-search="true">
+                        &lt;!&ndash;<option value="1">cow</option>
+                        <option value="2">bull</option>
+                        <option value="3">ASD</option>
+                        <option value="4" selected>Bla</option>
+                        <option value="5">Ble</option>
+                        </optgroup>&ndash;&gt;
+                    </select>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标 签 <span
+                        class="glyphicon glyphicon-plus span-icon-cursor span-yellow" data-toggle="tooltip"
+                        data-placement="bottom" title="选 择 标 签 ！" id="add-other-tag"></span>：</label>
+                <div class="col-sm-10">
+                    <div class="tag">
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label my-tag">我的常用标签：</label>
+                <div class="col-sm-10">
+                    <div class="my-tag-show">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="post-btn">确认提交</button>
+        </div>
+    </div>
+    <div id="other-tag-choose" class="dialog-context-width" style="display: none">
+        <div class="dialog-context-show">
+            <div class="tag-show-word">标签树</div>
+            <p class="tag-show-describe">可以为重复的标签，尽情的选择吧！</p>
+            <div class="tag-show">
+                <ul id="tag-tree" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="absolute-dialog-action">
+            <button type="button" class="btn btn-success" id="tag-cancel-btn">取 消</button>
+            <button type="button" class="btn btn-primary" id="tag-post-btn">确认提交</button>
+        </div>
     </div>
     <div class="info-show-header">
         <div class="info-context word">推送内容</div>
@@ -113,18 +342,7 @@
         <div class="info-operate word">操作</div>
     </div>
     <div class="info-show-context">
-        <!--<div class="info-context-item">
-            <div class="info-context word">标题 : 换个姿势解锁
-            </div>
-            <div class="info-time word">2017-03-03 00:17:41</div>
-            <div class="info-type word">微信</div>
-            <div class="info-post word">18752002129-我，一直在</div>
-            <div class="info-get word">18752002159-羽化</div>
-            <div class="info-operate word">
-                <button type="button" class="btn btn-primary">复制</button>
-                <button type="button" class="btn btn-success">完成</button>
-            </div>
-        </div>-->
+
     </div>
 </div>
 <script>

@@ -353,10 +353,9 @@ textarea::-moz-placeholder {
     height: 100%;
     flex: 1 1 86%; }
   #scheme-manage-html #table-show {
+    margin-top: 8px;
     height: 100%;
     overflow-y: auto; }
-  #scheme-manage-html .operation-head {
-    margin-bottom: -4%; }
   #scheme-manage-html #scheme-tag-show .scheme-tag {
     margin-left: 1%;
     margin-top: 8px; }
@@ -455,6 +454,8 @@ textarea::-moz-placeholder {
   display: flex;
   width: 98%;
   padding: 8px; }
+  #terrace-module-html .sorting-tag {
+    margin-left: 5px; }
   #terrace-module-html .left-content {
     flex: 1 1 10%; }
   #terrace-module-html .right-content {

@@ -370,10 +370,12 @@ define(function (require, exports, module) {
                 }
             },
             terraceManage: {
-                insertTerrace: function (terraceData, tagIds, areaId, baseTag, success) {
+                insertTerrace: function (terraceData, tagIds, sortingIds, sortingNames, areaId, baseTag, success) {
                     getDataWay(url + "insertTerraceModule", {
                         terraceData: terraceData,
                         tagIds: tagIds,
+                        sortingIds: sortingIds,
+                        sortingNames: sortingNames,
                         areaId: areaId,
                         baseTag: baseTag
                     }, success);

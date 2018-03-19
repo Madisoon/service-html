@@ -473,12 +473,9 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   }
 
   #table-show {
+    margin-top: 8px;
     height: 100%;
     overflow-y: auto;
-  }
-
-  .operation-head {
-    margin-bottom: -4%;
   }
 
   #scheme-tag-show .scheme-tag {
@@ -643,6 +640,9 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   display: flex;
   width: 98%;
   padding: 8px;
+  .sorting-tag {
+    margin-left: 5px;
+  }
   .left-content {
     flex: 1 1 10%;
   }

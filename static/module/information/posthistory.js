@@ -60,7 +60,7 @@ define(function (require, exports, module) {
         var getNumber = $('#get-number').val();
         var finishTime = $('#finish-time').val();
         var finishPeople = $('#finish-people').val();
-        var historyType = $('#history-type').val();
+        var inforContent = $('#infor-content').val();
         var customerName = $('#customer-name').val();
         if (postNumber !== "") {
             searchData.infor_post_people = postNumber;
@@ -74,13 +74,14 @@ define(function (require, exports, module) {
         if (finishPeople !== "") {
             searchData.user_name = finishPeople;
         }
-        if (historyType !== "") {
-            searchData.infor_post_type = historyType;
+        if (inforContent !== "") {
+            searchData.infor_context = inforContent;
         }
         if (customerName !== "") {
             searchData.customer_name = customerName;
         }
         tableChoiceData = searchData;
+        console.log(tableChoiceData);
         tableStart();
     });
 

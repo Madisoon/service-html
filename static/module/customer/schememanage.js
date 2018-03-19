@@ -402,7 +402,6 @@ define(function (require, exports, module) {
             dataField: 'data',//指定后台的数据的名称
             undefinedText: '--',
             sidePagination: 'client',
-            showColumns: 'true',
             classes: 'table table-bordered table-hover',
             method: 'post',
             url: '' + api.baseUrl + '/getAllSchemeChoose',

@@ -353,10 +353,9 @@ textarea::-moz-placeholder {
     height: 100%;
     flex: 1 1 86%; }
   #scheme-manage-html #table-show {
+    margin-top: 8px;
     height: 100%;
     overflow-y: auto; }
-  #scheme-manage-html .operation-head {
-    margin-bottom: -4%; }
   #scheme-manage-html #scheme-tag-show .scheme-tag {
     margin-left: 1%;
     margin-top: 8px; }
@@ -627,27 +626,28 @@ textarea::-moz-placeholder {
     display: flex;
     width: 100%;
     padding: 8px;
-    margin-top: 8px;
     border: 1px solid rgba(34, 36, 38, 0.15); }
   #information-post-html .info-show-context {
-    height: 87%;
+    height: 100%;
     overflow-y: auto;
     border: 1px solid rgba(34, 36, 38, 0.15); }
   #information-post-html .info-show-header .word {
     font-weight: 600;
     color: rgba(0, 0, 0, 0.8); }
   #information-post-html .info-context {
-    flex: 1 1 25%; }
-  #information-post-html .info-time {
-    flex: 1 1 13%; }
-  #information-post-html .info-type {
-    flex: 1 1 7%; }
-  #information-post-html .info-post {
-    flex: 1 1 20%; }
+    flex: 0 0 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  #information-post-html .info-title {
+    flex: 0 0 26%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   #information-post-html .info-get {
-    flex: 1 1 20%; }
+    flex: 0 0 20%; }
   #information-post-html .info-operate {
-    flex: 1 1 15%; }
+    flex: 0 0 14%; }
   #information-post-html .info-context-item {
     display: flex;
     padding: 8px;

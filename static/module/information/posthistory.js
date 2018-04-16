@@ -54,17 +54,13 @@ define(function (require, exports, module) {
         $('#choose-time-section').stop().slideUp();
     });
 
-    $('#search-history-data').unbind('click').click(function () {
+    function getFormValue() {
         var searchData = {};
-        var postNumber = $('#post-number').val();
         var getNumber = $('#get-number').val();
         var finishTime = $('#finish-time').val();
         var finishPeople = $('#finish-people').val();
-        var historyType = $('#history-type').val();
+        var inforContent = $('#infor-content').val();
         var customerName = $('#customer-name').val();
-        if (postNumber !== "") {
-            searchData.infor_post_people = postNumber;
-        }
         if (getNumber !== "") {
             searchData.infor_get_people = getNumber;
         }
@@ -74,14 +70,32 @@ define(function (require, exports, module) {
         if (finishPeople !== "") {
             searchData.user_name = finishPeople;
         }
-        if (historyType !== "") {
-            searchData.infor_post_type = historyType;
+        if (inforContent !== "") {
+            searchData.infor_context = inforContent;
         }
         if (customerName !== "") {
-            searchData.customer_name = customerName;
+            searchData.infor_consumer = customerName;
         }
-        tableChoiceData = searchData;
+        return searchData;
+    }
+
+    $('#search-history-data').unbind('click').click(function () {
+        tableChoiceData = getFormValue();
         tableStart();
+    });
+
+    $('#export-history-data').unbind('click').click(function () {
+        tableChoiceData = getFormValue();
+        api.information.infoHistory.exportHistoryInfor(JSON.stringify(tableChoiceData), function (rep) {
+            var filePath = rep.result;
+            if (filePath === '') {
+                layer.msg('抱歉!没有可导出的数据', {
+                    time: 1500
+                });
+            } else {
+                window.open('http://118.178.237.219:8080/dummyPath/' + filePath);
+            }
+        });
     });
 
     function getTime(startTime, endTime) {
@@ -112,74 +126,26 @@ define(function (require, exports, module) {
             columns: [{
                 checkbox: true
             }, {
+                field: 'infor_title',
+                title: '信息标题'
+            }, {
                 field: 'infor_context',
-                searchable: true,
-                sortable: true,
-                title: '信息内容',
-                formatter: function (value, row, index) {
-                    if (value.length <= 50) {
-                        return value;
-                    } else {
-                        return value.substring(0, 44) + "......";
-                    }
-
-                }
+                title: '信息内容'
             }, {
-                field: 'infor_post_type',
-                searchable: true,
-                sortable: true,
-                title: '信息类型',
-                formatter: function (value, row, index) {
-                    var inforTypeName = "";
-                    switch (value) {
-                        case "qq":
-                            inforTypeName = "QQ";
-                            break;
-                        case "qqGroup":
-                            inforTypeName = "QQ群";
-                            break;
-                        case "weixin":
-                            inforTypeName = "微信";
-                            break;
-                        case "weixinGroup":
-                            inforTypeName = "微信群";
-                            break;
-                        default:
-                            break;
-                    }
-                    return inforTypeName;
-
-                }
+                field: 'infor_consumer',
+                title: '接收方'
             }, {
-                field: 'infor_post_people',
-                title: '发送方',
-                formatter: function (value, row, index) {
-                    return value + '--' + row.number_name;
-                }
-            }, {
-                field: 'infor_get_people',
-                title: '接收方',
-                formatter: function (value, row, index) {
-                    return value + '--' + row.get_remark;
-                }
-            }, {
-                field: 'infor_post_time',
+                field: 'gmt_create',
                 title: '推送时间',
                 formatter: function (value, row, index) {
                     return value.substring(0, 16);
                 }
             }, {
-                field: 'infor_finish_time',
-                title: '完成时间',
-                formatter: function (value, row, index) {
-                    return value.substring(0, 16);
-                }
-            }, {
-                field: 'infor_finish_time',
+                field: 'id',
                 title: '时间差',
                 formatter: function (value, row, index) {
-                    var startTime = row.infor_post_time.substring(0, 16).replace(/-/g, "/");
-                    var endTime = row.infor_finish_time.substring(0, 16).replace(/-/g, "/");
+                    var startTime = row.gmt_create.substring(0, 16).replace(/-/g, "/");
+                    var endTime = row.gmt_modified.substring(0, 16).replace(/-/g, "/");
                     return getTime(startTime, endTime);
                 }
             }, {
@@ -207,9 +173,6 @@ define(function (require, exports, module) {
             pagination: true,
             paginationHAlign: 'left',
             paginationDetailHAlign: 'right',
-            onDblClickRow: function (row) {
-                console.log(row);
-            },
             onLoadSuccess: function (data) {
             }
         });

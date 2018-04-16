@@ -473,12 +473,9 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   }
 
   #table-show {
+    margin-top: 8px;
     height: 100%;
     overflow-y: auto;
-  }
-
-  .operation-head {
-    margin-bottom: -4%;
   }
 
   #scheme-tag-show .scheme-tag {
@@ -927,12 +924,11 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
     display: flex;
     width: 100%;
     padding: 8px;
-    margin-top: 8px;
     border: 1px solid rgba(34, 36, 38, .15);
   }
 
   .info-show-context {
-    height: 87%;
+    height: 100%;
     overflow-y: auto;
     border: 1px solid rgba(34, 36, 38, .15);
   }
@@ -943,27 +939,24 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   }
 
   .info-context {
-    flex: 1 1 25%;
+    flex: 0 0 40%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
   }
 
-  .info-time {
-    flex: 1 1 13%;
+  .info-title {
+    flex: 0 0 26%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
   }
-
-  .info-type {
-    flex: 1 1 7%;
-  }
-
-  .info-post {
-    flex: 1 1 20%;
-  }
-
   .info-get {
-    flex: 1 1 20%;
+    flex: 0 0 20%;
   }
 
   .info-operate {
-    flex: 1 1 15%;
+    flex: 0 0 14%;
   }
 
   .info-context-item {

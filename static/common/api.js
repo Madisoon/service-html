@@ -330,14 +330,6 @@ define(function (require, exports, module) {
                 },
                 getAllSchemeById: function (schemeId, success) {
                     getDataWay(url + "getAllSchemeById", {schemeId: schemeId}, success);
-                },
-                getTerraceCustomerTag: function (success) {
-                    getDataWay(url + "getTerraceCustomerTag", {}, success);
-                },
-                getTerraceTagBySchemeId: function (schemeId, success) {
-                    getDataWay(url + "getTerraceTagBySchemeId", {
-                        schemeId: schemeId
-                    }, success);
                 }
             },
             severCustomer: {
@@ -508,6 +500,12 @@ define(function (require, exports, module) {
                     getDataWay(url + 'manualPost', {
                         infoId: infoId,
                         customerId: customerId
+                    }, success);
+                },
+                infoSure: function (infoId, infoData, success) {
+                    getDataWay(url + 'infoSure', {
+                        infoId: infoId,
+                        infoData: infoData
                     }, success);
                 },
                 exportData: function (searchTagId, searchInfoData, customerName, exportType, success) {

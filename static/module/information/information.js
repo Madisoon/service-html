@@ -290,30 +290,17 @@ define(function (require, exports, module) {
     $('.export-infor-btn').click(function () {
         var infoChooseData = {};
         customerName = $('#contact-info-customer').val();
-        var infoTitle = $('#contact-info-title').val();
         var infoContext = $('#contact-info-context').val();
-        var infoType = $('#contact-info-type').val();
-        var infoGrade = $('#contact-info-grade').val();
         var infoCreater = $('#contact-info-user').val();
-        var infoStatus = $('#contact-info-status').val();
         var infoCreateTime = $('#contact-info-time').val();
-        if (infoTitle !== '') {
-            infoChooseData.infor_title = infoTitle;
-        }
         if (infoContext !== '') {
             infoChooseData.infor_context = infoContext;
         }
         if (infoType !== '') {
             infoChooseData.infor_type = infoType;
         }
-        if (infoGrade !== '') {
-            infoChooseData.infor_grade = infoGrade;
-        }
         if (infoCreater !== '') {
             infoChooseData.user_name = infoCreater;
-        }
-        if (infoStatus !== '') {
-            infoChooseData.infor_status = infoStatus;
         }
         if (infoCreateTime !== '') {
             infoChooseData.infor_createtime = infoCreateTime;
@@ -433,7 +420,6 @@ define(function (require, exports, module) {
         inforData.infor_grade = $('input[name=grade-radio]:checked').val();
         inforData.infor_link = $('.form-control.infor-link').val();
         inforData.infor_site = $('.form-control.infor-site').val();
-        inforData.infor_status = '0';
         inforData.infor_source = $('input[name=info-resource]:checked').val();
         inforData.infor_creater = sysTem.user.user_loginname;
         var tagIds = [];
@@ -532,6 +518,7 @@ define(function (require, exports, module) {
                     searchTagId: searchTagId.join(','),
                     searchInfoData: JSON.stringify(searchInfoData),
                     customerName: customerName,
+                    isStatus: '1'
                 };
                 return param;
             },

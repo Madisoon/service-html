@@ -454,6 +454,8 @@ textarea::-moz-placeholder {
   display: flex;
   width: 98%;
   padding: 8px; }
+  #terrace-module-html .sorting-tag {
+    margin-left: 5px; }
   #terrace-module-html .left-content {
     flex: 1 1 10%; }
   #terrace-module-html .right-content {

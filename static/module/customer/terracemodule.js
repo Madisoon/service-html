@@ -21,6 +21,7 @@ define(function (require, exports, module) {
     var terraceType;
     var chooseId = [];
     var chooseDataTable;
+    var chooseTerraceDialog;
     // 树的初始化设置
     var setting = {
         callback: {
@@ -86,6 +87,40 @@ define(function (require, exports, module) {
 
     $('#choose-terrace').unbind('click').click(function () {
         $('.terrace-choose-input').stop().slideToggle();
+    });
+
+    api.movement.schemeManage.getTerraceCustomerTag(function (rep) {
+        var tagData = rep.value;
+        var tagDataLen = rep.value.length;
+        var tagDom = [];
+        for (var i = 0; i < tagDataLen; i++) {
+            tagDom.push('<label class="checkbox-inline">  ' +
+                '            <input type="checkbox" class="terrace-tag-id" data-name = "' + tagData[i].name + '" value="' + tagData[i].id + '"> ' + tagData[i].name + '' +
+                '            </label>');
+        }
+        $('.sorting-tag-show').empty();
+        $('.sorting-tag-show').append(tagDom.join(''));
+    });
+
+    $('#add-sorting-tag').click(function () {
+        chooseTerraceDialog = layer.open({
+            title: '选择平台标签',
+            type: 1,
+            area: ['52%', '80%'], //宽高
+            content: $('#choose-sorting-tag-dialog')
+        });
+        $('.terrace-tag-id').prop('checked', false);
+    });
+
+    $('#terrace-tag-btn').click(function () {
+        var domTag = [];
+        $('.terrace-tag-id:checked').each(function () {
+            domTag.push('<span class="label label-success span-icon-cursor sorting-tag" tag-name="' + $(this).attr('data-name') + '" tag-id="' + $(this).val() + '">' + $(this).attr('data-name') + '&nbsp;&nbsp;' +
+                '<span class="glyphicon  glyphicon-remove"></span></span>');
+        });
+        $('#sorting-tag-show').empty();
+        $('#sorting-tag-show').append(domTag.join(''));
+        layer.close(chooseTerraceDialog);
     });
 
     $('.form-control.terrace-choose-tag').focus(function () {
@@ -232,20 +267,26 @@ define(function (require, exports, module) {
         } else {
             layer.close(addTerraceDialog);
             if (terraceType) {
-                api.movement.terraceManage.insertTerrace(JSON.stringify(terraceData.terraceData), terraceData.terraceTagId.join(','), areaId, tagBase.join(','), function (rep) {
-                    if (rep.result) {
-                        tableStart();
-                        layer.msg(' 添 加 成 功 ！', {
-                            icon: 1,
-                            time: 1200,
-                        });
-                    } else {
-                        layer.msg(' 添 加 失 败 ！', {
-                            icon: 2,
-                            time: 1200,
-                        });
-                    }
-                });
+                api.movement.terraceManage.insertTerrace(JSON.stringify(terraceData.terraceData),
+                    terraceData.terraceTagId.join(','),
+                    terraceData.sortingTagId.join(','),
+                    terraceData.terraceTagName.join(','),
+                    areaId,
+                    tagBase.join(','),
+                    function (rep) {
+                        if (rep.result) {
+                            tableStart();
+                            layer.msg(' 添 加 成 功 ！', {
+                                icon: 1,
+                                time: 1200,
+                            });
+                        } else {
+                            layer.msg(' 添 加 失 败 ！', {
+                                icon: 2,
+                                time: 1200,
+                            });
+                        }
+                    });
             } else {
                 api.movement.terraceManage.updateTerrace(terraceId, terraceData.terraceTagId.join(','), JSON.stringify(terraceData.terraceData), tagBase.join(','), function (rep) {
                     if (rep.result) {
@@ -276,6 +317,7 @@ define(function (require, exports, module) {
         var allData = {
             terraceData: {},
             terraceTagId: [],
+            sortingTagId: []
         };
         var terraceGrade = [];
         $('.terrace-grade:checked').each(function () {
@@ -291,6 +333,13 @@ define(function (require, exports, module) {
             terrace_module_status: $('.terrace-status:checked').val(),
             terrace_module_interval: $('#terrace-interval').val()
         };
+
+        $('.label-success.sorting-tag').each(function () {
+            allData.sortingTagId.push($(this).attr('tag-id'));
+        });
+        $('.label-success.sorting-tag').each(function () {
+            allData.terraceTagName.push($(this).attr('tag-name'));
+        });
         $('.label-primary.terrace-tag').each(function () {
             allData.terraceTagId.push($(this).attr('tag-id'));
         });
@@ -298,6 +347,7 @@ define(function (require, exports, module) {
     }
 
     tableStart();
+
     function tableStart() {
         $('#all-terrace-table').bootstrapTable('destroy');
         $('#all-terrace-table').bootstrapTable({

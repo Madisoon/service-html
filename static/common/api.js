@@ -305,11 +305,9 @@ define(function (require, exports, module) {
                 }
             },
             schemeManage: {
-                insertScheme: function (schemeData, terraceTagIds, terraceTagNames, tagIds, areaId, baseTag, success) {
+                insertScheme: function (schemeData, tagIds, areaId, baseTag, success) {
                     getDataWay(url + "insertScheme", {
                         schemeData: schemeData,
-                        terraceTagIds: terraceTagIds,
-                        terraceTagName: terraceTagNames,
                         tagIds: tagIds,
                         areaId: areaId,
                         baseTag: baseTag
@@ -318,12 +316,10 @@ define(function (require, exports, module) {
                 deleteSchemeId: function (schemeId, success) {
                     getDataWay(url + "deleteSchemeId", {schemeId: schemeId}, success);
                 },
-                updateScheme: function (schemeId, tagIds, terraceTagId, terraceTagNames, schemeData, baseTag, success) {
+                updateScheme: function (schemeId, tagIds, schemeData, baseTag, success) {
                     getDataWay(url + "updateScheme", {
                         schemeId: schemeId,
                         tagIds: tagIds,
-                        terraceTagId: terraceTagId,
-                        terraceTagName: terraceTagNames,
                         schemeData: schemeData,
                         baseTag: baseTag
                     }, success);
@@ -362,12 +358,10 @@ define(function (require, exports, module) {
                 }
             },
             terraceManage: {
-                insertTerrace: function (terraceData, tagIds, sortingIds, sortingNames, areaId, baseTag, success) {
+                insertTerrace: function (terraceData, tagIds, areaId, baseTag, success) {
                     getDataWay(url + "insertTerraceModule", {
                         terraceData: terraceData,
                         tagIds: tagIds,
-                        sortingIds: sortingIds,
-                        sortingNames: sortingNames,
                         areaId: areaId,
                         baseTag: baseTag
                     }, success);

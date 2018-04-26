@@ -637,19 +637,22 @@ textarea::-moz-placeholder {
     font-weight: 600;
     color: rgba(0, 0, 0, 0.8); }
   #information-post-html .info-context {
-    flex: 0 0 40%;
+    flex: 0 0 35%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
   #information-post-html .info-title {
-    flex: 0 0 26%;
+    flex: 0 0 17%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
+  #information-post-html .info-type {
+    margin-left: 1%;
+    flex: 0 0 4%; }
   #information-post-html .info-get {
-    flex: 0 0 20%; }
+    flex: 0 0 25%; }
   #information-post-html .info-operate {
-    flex: 0 0 14%; }
+    flex: 0 0 18%; }
   #information-post-html .info-context-item {
     display: flex;
     padding: 8px;

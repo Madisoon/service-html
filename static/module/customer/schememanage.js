@@ -148,7 +148,6 @@ define(function (require, exports, module) {
 
     $('#add-tag-btn').unbind('click').click(function () {
         layer.close(addSchemeTag);
-        /*var treeObj = $.fn.zTree.getZTreeObj("tag-tree");
          // 获取到所有被点击的标签*/
         var nodes = tagShow.tagOperation.getTreeValue(true, 'tag-tree');
         var nodesLen = nodes.length;
@@ -228,7 +227,7 @@ define(function (require, exports, module) {
         } else {
             layer.close(addSchemeDialog);
             if (schemeType) {
-                api.movement.schemeManage.insertScheme(JSON.stringify(schemeData.schemeData), schemeData.terraceTagId.join(','), schemeData.terraceTagName.join(','), schemeData.schemeTagId.join(','), areaId, tagBase.join(','), function (rep) {
+                api.movement.schemeManage.insertScheme(JSON.stringify(schemeData.schemeData), schemeData.schemeTagId.join(','), areaId, tagBase.join(','), function (rep) {
                     if (rep.result) {
                         tableStart();
                         layer.msg(' 添 加 成 功 ！', {
@@ -243,7 +242,7 @@ define(function (require, exports, module) {
                     }
                 });
             } else {
-                api.movement.schemeManage.updateScheme(schemeId, schemeData.schemeTagId.join(','), schemeData.terraceTagId.join(','), schemeData.terraceTagName.join(','), JSON.stringify(schemeData.schemeData), tagBase.join(','), function (rep) {
+                api.movement.schemeManage.updateScheme(schemeId, schemeData.schemeTagId.join(','), JSON.stringify(schemeData.schemeData), tagBase.join(','), function (rep) {
                     if (rep.result) {
                         tableStart();
                         layer.msg(' 修 改 成 功 ！', {
@@ -385,7 +384,6 @@ define(function (require, exports, module) {
 
     //表单赋值或者清空
     function getSetForm(row, flag) {
-        console.log(row);
         //表单清空
         var treeObj = $.fn.zTree.getZTreeObj("tag-tree");
         tagShow.tagOperation.writeTagData(false, '', 'tag-tree');

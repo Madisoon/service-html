@@ -28,7 +28,6 @@ define(function (require, exports, module) {
                 maxDate: $('#choose-end-time').val() ? $('#choose-end-time').val() : false
             })
         }
-        /*timepicker: false*/
     });
     $('#choose-end-time').datetimepicker({
         format: 'Y-m-d H:i',
@@ -37,7 +36,6 @@ define(function (require, exports, module) {
                 minDate: $('#choose-start-time').val() ? $('#choose-start-time').val() : false
             })
         }
-        /*timepicker: false*/
     });
 
     $('#contact-info-time').focus(function () {
@@ -443,29 +441,26 @@ define(function (require, exports, module) {
                 checkbox: true
             }, {
                 field: 'infor_title',
-                searchable: true,
                 title: '信息标题',
+                width: 200,
                 formatter: function (value, row, index) {
-                    if (value.length <= 20) {
-                        return value;
+                    if (value.length > 25) {
+                        return value.substring(0, 25)+"...";
                     } else {
-                        return value.substring(0, 15) + "......";
+                        return value;
                     }
-
                 }
             }, {
                 field: 'infor_context',
-                searchable: true,
                 title: '信息内容',
+                width: 500,
                 formatter: function (value, row, index) {
-                    if (value.length <= 80) {
-                        return value;
+                    if (value.length > 75) {
+                        return value.substring(0, 75)+"...";
                     } else {
-                        return value.substring(0, 76) + "......";
+                        return value;
                     }
-
                 }
-
             }, {
                 field: 'tag_names',
                 title: '信息标签',

@@ -20,7 +20,6 @@ define(function (require, exports, module) {
                 maxDate: $('#choose-end-time').val() ? $('#choose-end-time').val() : false
             })
         }
-        /*timepicker: false*/
     });
     $('#choose-end-time').datetimepicker({
         format: 'Y-m-d H:i',
@@ -29,7 +28,6 @@ define(function (require, exports, module) {
                 minDate: $('#choose-start-time').val() ? $('#choose-start-time').val() : false
             })
         }
-        /*timepicker: false*/
     });
 
     $('#finish-time').focus(function () {
@@ -88,6 +86,7 @@ define(function (require, exports, module) {
         tableChoiceData = getFormValue();
         api.information.infoHistory.exportHistoryInfor(JSON.stringify(tableChoiceData), function (rep) {
             var filePath = rep.result;
+            console.log(rep);
             if (filePath === '') {
                 layer.msg('抱歉!没有可导出的数据', {
                     time: 1500
@@ -103,7 +102,6 @@ define(function (require, exports, module) {
         var endTime = new Date(endTime);
         var timeDisparity = endTime.getTime() - startTime.getTime();
         var days = Math.floor(timeDisparity / (24 * 3600 * 1000));
-
 //计算出小时数
         var leave1 = timeDisparity % (24 * 3600 * 1000);   //计算天数后剩余的毫秒数
         var hours = Math.floor(leave1 / (3600 * 1000));
@@ -113,10 +111,7 @@ define(function (require, exports, module) {
         var timeData = hours + "时 " + minutes + "分";
         return timeData;
     }
-
     tableStart();
-
-
     /**
      * 表格初始化
      */
@@ -124,13 +119,27 @@ define(function (require, exports, module) {
         $('#all-infor-history').bootstrapTable('destroy');
         $('#all-infor-history').bootstrapTable({
             columns: [{
-                checkbox: true
-            }, {
                 field: 'infor_title',
-                title: '信息标题'
+                title: '信息标题',
+                width: 200,
+                formatter: function (value, row, index) {
+                    if (value.length > 25) {
+                        return value.substring(0, 25)+"...";
+                    } else {
+                        return value;
+                    }
+                }
             }, {
                 field: 'infor_context',
-                title: '信息内容'
+                title: '信息内容',
+                width: 500,
+                formatter: function (value, row, index) {
+                    if (value.length > 75) {
+                        return value.substring(0, 75)+"...";
+                    } else {
+                        return value;
+                    }
+                }
             }, {
                 field: 'infor_consumer',
                 title: '接收方'
@@ -148,10 +157,6 @@ define(function (require, exports, module) {
                     var endTime = row.gmt_modified.substring(0, 16).replace(/-/g, "/");
                     return getTime(startTime, endTime);
                 }
-            }, {
-                field: 'user_name',
-                searchable: true,
-                title: '完成者'
             }],
             pageNumber: 1,
             pageSize: 25,

@@ -269,8 +269,6 @@ define(function (require, exports, module) {
             if (terraceType) {
                 api.movement.terraceManage.insertTerrace(JSON.stringify(terraceData.terraceData),
                     terraceData.terraceTagId.join(','),
-                    terraceData.sortingTagId.join(','),
-                    terraceData.terraceTagName.join(','),
                     areaId,
                     tagBase.join(','),
                     function (rep) {

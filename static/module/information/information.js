@@ -601,6 +601,7 @@ define(function (require, exports, module) {
             idS.push(nodes[i].id);
         }
         api.movement.severCustomer.getAllServeCustomers(idS.join(','), function (rep) {
+            console.log(rep);
             var schemeAll = rep.data;
             var schemeAllLen = rep.total;
             var schemeDom = [];

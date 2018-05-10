@@ -52,13 +52,75 @@ define(function (require, exports, module) {
         $('#choose-time-section').stop().slideUp();
     });
 
+    var settingScheme = {
+        callback: {
+            onClick: onClickCallBackScheme
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "area_parent",
+                rootPId: 0
+            }
+        }
+    };
+    // 联动性参数设置
+    var zNodesScheme = null;
+    api.system.areaManage.getAllArea(function (rep) {
+        zNodesScheme = rep.data;
+        $.fn.zTree.init($("#scheme-area-tree"), settingScheme, zNodesScheme);
+    });
+
+    function onClickCallBackScheme(event, treeId, treeNode) {
+        var treeObj = $.fn.zTree.getZTreeObj("scheme-area-tree");
+        var nodes = treeObj.transformToArray(treeNode);
+        var nodesLen = nodes.length;
+        var idS = [];
+        for (var i = 0; i < nodesLen; i++) {
+            idS.push(nodes[i].id);
+        }
+        api.movement.severCustomer.getAllServeCustomers(idS.join(','), function (rep) {
+            var schemeAll = rep.data;
+            var schemeAllLen = rep.total;
+            var schemeDom = [];
+            for (var i = 0; i < schemeAllLen; i++) {
+                schemeDom.push('<label class="radio-inline">');
+                schemeDom.push('<input type="radio" name="schemeOptions" schemeName="' + schemeAll[i].customer_name + '"  value="' + schemeAll[i].id + '" checked>');
+                schemeDom.push('' + schemeAll[i].customer_name + '');
+                schemeDom.push('</label>');
+            }
+            $('#search-scheme-name').val("");
+            $('.scheme-info').empty();
+            $('.scheme-info').append(schemeDom.join(''));
+        });
+    };
+
+    $('#post-scheme-btn').unbind('click').click(function () {
+        layer.closeAll();
+        var customerArray = [];
+        $('input[name = schemeOptions]:checked').each(function () {
+            customerArray.push($(this).attr('schemeName'));
+        });
+        $('#contact-info-customer').val(customerArray.join('|'));
+    });
+
+    $('#choose-contact-customer-btn').unbind('click').click(function () {
+        layer.open({
+            title: '筛 选 客 户',
+            type: 1,
+            area: ['50%', '96%'], //宽高
+            content: $('#scheme-choose-dialog')
+        });
+    });
+
     function getFormValue() {
         var searchData = {};
         var getNumber = $('#get-number').val();
         var finishTime = $('#finish-time').val();
         var finishPeople = $('#finish-people').val();
         var inforContent = $('#infor-content').val();
-        var customerName = $('#customer-name').val();
+        var customerName = $('#contact-info-customer').val();
         if (getNumber !== "") {
             searchData.infor_get_people = getNumber;
         }
@@ -82,11 +144,11 @@ define(function (require, exports, module) {
         tableStart();
     });
 
-    $('#export-history-data').unbind('click').click(function () {
+    $('.export-history-data').unbind('click').click(function () {
+        var exportType = $(this).attr('export-type');
         tableChoiceData = getFormValue();
-        api.information.infoHistory.exportHistoryInfor(JSON.stringify(tableChoiceData), function (rep) {
+        api.information.infoHistory.exportHistoryInfor(JSON.stringify(tableChoiceData), exportType, function (rep) {
             var filePath = rep.result;
-            console.log(rep);
             if (filePath === '') {
                 layer.msg('抱歉!没有可导出的数据', {
                     time: 1500
@@ -111,7 +173,9 @@ define(function (require, exports, module) {
         var timeData = hours + "时 " + minutes + "分";
         return timeData;
     }
+
     tableStart();
+
     /**
      * 表格初始化
      */
@@ -124,7 +188,7 @@ define(function (require, exports, module) {
                 width: 200,
                 formatter: function (value, row, index) {
                     if (value.length > 25) {
-                        return value.substring(0, 25)+"...";
+                        return value.substring(0, 25) + "...";
                     } else {
                         return value;
                     }
@@ -135,7 +199,7 @@ define(function (require, exports, module) {
                 width: 500,
                 formatter: function (value, row, index) {
                     if (value.length > 75) {
-                        return value.substring(0, 75)+"...";
+                        return value.substring(0, 75) + "...";
                     } else {
                         return value;
                     }

@@ -944,14 +944,14 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
   .info-context {
     flex: 0 0 35%;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .info-title {
     flex: 0 0 17%;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -1983,5 +1983,49 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
 
   .my-tag .label {
     font-size: 90%;
+  }
+}
+
+.report-show-html {
+  padding: 8px;
+  .other-tag {
+    margin-left: 5px;
+  }
+  .table {
+    margin-top: 8px;
+  }
+  #tag-choose-dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .tag-show {
+      flex: 1;
+      margin-left: 32%;
+    }
+    .tag-show-word {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+    .tag-show-describe {
+      font-size: 1.0rem;
+      color: rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+  }
+}
+
+.report-template-html {
+  padding: 8px;
+  .table {
+    margin-top: 8px;
+  }
+}
+
+.email-monitor-html {
+  padding: 8px;
+  .table {
+    margin-top: 8px;
   }
 }

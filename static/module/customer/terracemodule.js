@@ -89,29 +89,6 @@ define(function (require, exports, module) {
         $('.terrace-choose-input').stop().slideToggle();
     });
 
-    api.movement.schemeManage.getTerraceCustomerTag(function (rep) {
-        var tagData = rep.value;
-        var tagDataLen = rep.value.length;
-        var tagDom = [];
-        for (var i = 0; i < tagDataLen; i++) {
-            tagDom.push('<label class="checkbox-inline">  ' +
-                '            <input type="checkbox" class="terrace-tag-id" data-name = "' + tagData[i].name + '" value="' + tagData[i].id + '"> ' + tagData[i].name + '' +
-                '            </label>');
-        }
-        $('.sorting-tag-show').empty();
-        $('.sorting-tag-show').append(tagDom.join(''));
-    });
-
-    $('#add-sorting-tag').click(function () {
-        chooseTerraceDialog = layer.open({
-            title: '选择平台标签',
-            type: 1,
-            area: ['52%', '80%'], //宽高
-            content: $('#choose-sorting-tag-dialog')
-        });
-        $('.terrace-tag-id').prop('checked', false);
-    });
-
     $('#terrace-tag-btn').click(function () {
         var domTag = [];
         $('.terrace-tag-id:checked').each(function () {

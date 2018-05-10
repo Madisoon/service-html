@@ -319,6 +319,8 @@ define(function (require, exports, module) {
             customer_end_time: $('.form-control.end-time').val(),
             customer_status: $('input[name=customer-status]:checked').val(),
             customer_priority: $('.customer-grade-value:checked').val(),
+            email_status: $('.email-post-status:checked').val(),
+            email_number: $('#email-number').val(),
             customer_scheme: $('.panel-body.scheme-name').attr("scheme-id"),
             customer_creater: sysTem.user.user_loginname,
             customer_post_qq: $('#choose-qq').val(),
@@ -428,7 +430,6 @@ define(function (require, exports, module) {
     });
 
     api.movement.configureManage.getAllWx(function (rep) {
-        console.log(rep);
         var wxData = rep.data;
         var wxLen = rep.total;
         var dom = [];
@@ -439,6 +440,7 @@ define(function (require, exports, module) {
     });
 
     tableStart();
+
     function tableStart() {
         $('#customer-info').bootstrapTable('destroy');
         $('#customer-info').bootstrapTable({

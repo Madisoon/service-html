@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     /* require('http://localhost:63343/service-html/spm_modules/layer/layer.js');*/
     //地址，参数（为对象），方法请求成功
     var baseUrl = 'http://127.0.0.1:8080/manage/';
+    var fileAddressUrl = 'http://118.178.237.219:8080/dummyPath/';
     /*var baseUrl = 'http://39.108.178.160:8080/yuqingmanage/manage/';*/
     /*var baseUrl = 'http://118.178.237.219:8080/yuqingmanage/manage/';*/
     var getDataWay = function (url, params, success) {
@@ -464,6 +465,49 @@ define(function (require, exports, module) {
                 resetAnnouncement: function (success) {
                     getDataWay(url + "resetAnnouncement", {}, success);
                 }
+            },
+            emailManage: {
+                insertEmailData: function (id, fileUrl, tagIdS, success) {
+                    getDataWay(url + "insertEmailData", {
+                        id: id,
+                        url: fileUrl,
+                        tagIdS: tagIdS
+                    }, success);
+                },
+                insertTemplateData: function (templateData, success) {
+                    getDataWay(url + "insertTemplateData", {
+                        templateData: templateData
+                    }, success);
+                },
+                updateTemplateData: function (templateData, id, success) {
+                    getDataWay(url + "updateTemplateData", {
+                        templateData: templateData,
+                        id: id
+                    }, success);
+                },
+                updateEmailMonitor: function (id, success) {
+                    getDataWay(url + "updateEmailMonitor", {
+                        id: id
+                    }, success);
+                },
+                deleteEmailData: function (id, success) {
+                    getDataWay(url + "deleteEmailData", {
+                        id: id
+                    }, success);
+                },
+                deleteEmailMonitor: function (id, success) {
+                    getDataWay(url + "deleteEmailMonitor", {
+                        id: id
+                    }, success);
+                },
+                deleteTemplateData: function (id, success) {
+                    getDataWay(url + "deleteTemplateData", {
+                        id: id
+                    }, success);
+                },
+                getAllTemplate: function (success) {
+                    getDataWay(url + "getAllTemplate", {}, success);
+                }
             }
         }
     }());
@@ -534,8 +578,11 @@ define(function (require, exports, module) {
                 getInforPost: function (success) {
                     getDataWay(url + "getInforPost", {}, success);
                 },
-                exportHistoryInfor: function (searchData, success) {
-                    getDataWay(url + "exportHistoryInfor", {searchData: searchData}, success);
+                exportHistoryInfor: function (searchData, exportType, success) {
+                    getDataWay(url + "exportHistoryInfor", {
+                        searchData: searchData,
+                        exportType: exportType
+                    }, success);
                 }
             }
         }
@@ -659,6 +706,7 @@ define(function (require, exports, module) {
         movement: movement,
         information: information,
         tag: tag,
-        app: app
+        app: app,
+        fileAddressUrl: fileAddressUrl
     };
 });

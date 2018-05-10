@@ -157,5 +157,4 @@ define(function (require, exports, module) {
             $('#wx-remark').val("");
         }
     }
-
 });

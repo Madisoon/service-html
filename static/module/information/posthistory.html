@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.css">
     <link rel="stylesheet" href="../../../spm_modules/datepicker/jquery.datetimepicker.min.css"/>
     <link href="../../header.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../spm_modules/ztree/css/zTreeStyle/zTreeStyle.css">
     <script src="../../../spm_modules/jquery/jquery-3.1.1.min.js"></script>
     <script src="../../../spm_modules/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js"></script>
     <script src="../../../spm_modules/datepicker/jquery.datetimepicker.full.min.js"></script>
     <script src="../../../spm_modules/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
     <script src="../../../spm_modules/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../../spm_modules/ztree/jquery.ztree.excheck.min.js"></script>
     <script src="../../../spm_modules/layer/layer.js"></script>
     <script src="../../../spm_modules/seajs-3.0.0/dist/sea.js"></script>
     <style>
@@ -66,6 +69,42 @@
             float: right;
             margin-top: 5px;
         }
+
+        #scheme-choose-dialog .scheme-context {
+            display: flex;
+            width: 100%;
+        }
+
+        .scheme-area {
+            flex: 1 1 20%;
+        }
+
+        .scheme-context-show {
+            flex: 1 1 80%;
+        }
+
+        .search-scheme-customer {
+            display: flex;
+        }
+
+        .search-scheme-customer .control-label {
+            flex: 1 1 20%;
+            align-self: center;
+        }
+
+        .search-scheme-customer .form-control {
+            flex: 1 1 60%;
+        }
+
+        .search-scheme-customer .search-scheme {
+            flex: 1 1 20%;
+        }
+
+        .scheme-info {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -99,20 +138,43 @@
                 <label class="sr-only">完成者</label>
                 <input type="text" class="form-control" id="finish-people" placeholder="完成者">
             </div>
-            <div class="form-group">
-                <label class="sr-only">客户</label>
-                <input type="text" class="form-control" id="customer-name" placeholder="客户">
+            <div class="form-group" id="choose-customer-btn">
+                <input type="text" class="form-control" id="contact-info-customer"
+                       placeholder="关联客户">
+                <button type="button" class="btn btn-info" id="choose-contact-customer-btn">……
+                </button>
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" id="search-history-data">筛选
                 </button>
-                <button type="button" class="btn btn-success" id="export-history-data">导出
+                <button type="button" class="btn btn-success export-history-data" export-type="word">导出word
+                </button>
+                <button type="button" class="btn btn-success export-history-data" export-type="excel">导出excel
                 </button>
             </div>
         </form>
     </div>
     <div class="table">
         <table class="table table-condensed" id="all-infor-history"></table>
+    </div>
+</div>
+<div id="scheme-choose-dialog" class="dialog-context-width" style="display: none">
+    <div class="scheme-context dialog-context-show">
+        <div class="scheme-area">
+            <ul id="scheme-area-tree" class="ztree"></ul>
+        </div>
+        <div class="scheme-context-show area-segment">
+            <div class="search-scheme-customer">
+                <label class="control-label">客户名称:</label>
+                <input type="text" class="form-control" id="search-scheme-name" placeholder="客户名称">
+                <button type="submit" class="btn btn-primary search-scheme">搜索</button>
+            </div>
+            <div class="scheme-info">
+            </div>
+        </div>
+    </div>
+    <div class="absolute-dialog-action">
+        <button type="button" class="btn btn-primary" id="post-scheme-btn">确认提交</button>
     </div>
 </div>
 <script>

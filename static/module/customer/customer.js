@@ -537,7 +537,6 @@ define(function (require, exports, module) {
                         serveCustomerSearch: JSON.stringify(serveCustomerSearch)
                     }
                 ;
-                console.log(param);
                 return param;
             },
             pagination: true,
@@ -581,6 +580,7 @@ define(function (require, exports, module) {
             $('.list-group.number').empty();
             $('.list-group.weixin').empty();
             $('.list-group.weixin-group').empty();
+            $('.email-post-status input[value=1]').prop("checked", true);
             $('.customer-status input[value=1]').prop("checked", true);
             $('.customer-grade-value[value=1]').prop("checked", true);
             $('.plan-time-interval').show();
@@ -593,6 +593,7 @@ define(function (require, exports, module) {
             }
 
             $('.customer-grade-value[value=' + row.customer_priority + ']').prop("checked", true);
+            $('.email-post-status[value=' + row.email_status + ']').prop("checked", true);
             $('#customer-name').val(row.customer_name);
             $('.form-control.start-time').val(row.customer_start_time);
             $('.form-control.end-time').val(row.customer_end_time);
@@ -600,7 +601,7 @@ define(function (require, exports, module) {
             $('#choose-qq').val(row.customer_post_qq);
             $('#choose-weixin').val(row.customer_post_weixin);
             $('.panel-body.scheme-name').text(row.scheme_name);
-
+            $('#email-number').val(row.email_number);
             var getNumbers = row.get_numbers.split(',');
             var getRemarks = row.get_remarks.split(',');
             var getTypes = row.get_types.split(',');

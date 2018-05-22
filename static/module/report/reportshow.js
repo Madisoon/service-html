@@ -15,18 +15,23 @@ define(function (require, exports, module) {
             columns: [{
                 checkbox: true
             }, {
-                field: 'template_title',
+                field: 'template_name',
                 searchable: true,
                 sortable: true,
-                title: '标题'
-            }, {
-                field: 'template_content',
-                searchable: true,
-                title: '内容'
+                title: '模版名称'
             }, {
                 field: 'tag_name',
                 searchable: true,
                 title: '标签'
+            }, {
+                field: 'email_file_url',
+                searchable: true,
+                title: '文件',
+                formatter: function (value, row, index) {
+                    return '<a href="http://118.178.237.219:8080/dummyPath/' + value + '">' +
+                        '<span class="glyphicon glyphicon-download-alt"></span></a>'
+                }
+
             }, {
                 field: 'gmt_create',
                 searchable: true,
@@ -100,9 +105,9 @@ define(function (require, exports, module) {
             tagIds.push($(this).attr("tag-id"));
         });
         API.movement.emailManage.insertEmailData(id, taskFileUrl, tagIds.join(','), function (rep) {
-            layer.closeAll();
             emailTableStart();
         });
+        layer.closeAll();
     });
 
     $('.form-control.taskFileUrl').change(function () {

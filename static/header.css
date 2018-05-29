@@ -1362,4 +1362,214 @@ textarea::-moz-placeholder {
   .email-monitor-html .table {
     margin-top: 8px; }
 
+#topic-module-html {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 8px; }
+  #topic-module-html .left-content {
+    flex: 1 1 16%; }
+  #topic-module-html .right-content {
+    margin-left: 1%;
+    flex: 1 1 83%; }
+  #topic-module-html .table {
+    margin-top: 8px; }
+  #topic-module-html .info-tag {
+    margin-top: 5px;
+    margin-left: 5px; }
+  #topic-module-html .topic-tag {
+    margin-top: 5px;
+    margin-left: 5px; }
+  #topic-module-html #tag-show {
+    display: flex;
+    flex-wrap: wrap; }
+  #topic-module-html #topic-tag-show {
+    display: flex;
+    flex-wrap: wrap; }
+
+.app-note-html {
+  padding: 8px; }
+  .app-note-html .table {
+    margin-top: 6px; }
+  .app-note-html .operation-btn {
+    margin-top: 8px; }
+
+.focus-topic-html {
+  padding: 8px;
+  display: flex;
+  height: 100%; }
+  .focus-topic-html .left-nav-topic {
+    flex: 1 1 18%; }
+  .focus-topic-html .right-context {
+    margin-left: 2%;
+    flex: 1 1 80%; }
+  .focus-topic-html .table {
+    margin-top: 8px; }
+  .focus-topic-html #rMenu {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    background-color: white;
+    padding: 2px; }
+  .focus-topic-html #rMenu ul {
+    -webkit-padding-start: 0px;
+    width: 100px;
+    padding: 2px 4px;
+    box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15); }
+  .focus-topic-html #rMenu ul li {
+    text-align: center;
+    margin: 1px 0;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    list-style: none outside none;
+    border-bottom: 1px solid #f8f6f2;
+    font-size: 0.9rem; }
+  .focus-topic-html #rMenu ul li:hover {
+    background: #2299ee; }
+  .focus-topic-html .ztree li {
+    margin-top: 8px; }
+  .focus-topic-html .ztree * {
+    font-family: '微软雅黑';
+    font-size: 1.1rem; }
+  .focus-topic-html .ztree li a.curSelectedNode {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 19px; }
+  .focus-topic-html .ztree li a:hover {
+    text-decoration: none !important;
+    background-color: rgba(0, 0, 0, 0.2) !important; }
+  .focus-topic-html #area-tree-manage-html .title {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 1.1rem;
+    padding-left: 8px; }
+  .focus-topic-html .corpus-show {
+    margin-top: 5px; }
+  .focus-topic-html .corpus-table {
+    margin-top: 8px; }
+  .focus-topic-html #topic-post-dialog {
+    display: flex;
+    flex-direction: column; }
+  .focus-topic-html .topic-context {
+    flex: 1; }
+  .focus-topic-html .display-btn {
+    text-align: right;
+    margin-top: 8px;
+    margin-right: 8px; }
+  .focus-topic-html .add-topic-dialog {
+    width: 98%;
+    height: 90%;
+    position: fixed;
+    background-color: black;
+    z-index: 5;
+    top: 5%; }
+  .focus-topic-html .dialog-show {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.3); }
+  .focus-topic-html #topic-post-dialog {
+    height: 90%;
+    margin-top: 2.5%;
+    width: 90%;
+    margin-left: 5%;
+    background-color: white;
+    overflow-y: auto;
+    position: relative; }
+  .focus-topic-html .layui-yq-layer-title {
+    padding: 0 80px 0 20px;
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+    background-color: #F8F8F8;
+    border-radius: 2px 2px 0 0; }
+
+.app-user-html {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 8px; }
+  .app-user-html .left-area-nav {
+    flex: 1 1 16%; }
+  .app-user-html .right-app-user-context {
+    flex: 1 1 83%;
+    margin-left: 1%; }
+  .app-user-html .program-head {
+    display: flex; }
+  .app-user-html .program-context-item {
+    display: flex;
+    padding: 8px;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15); }
+  .app-user-html .program-show .program-name {
+    flex: 0 0 15%;
+    font-size: 14px;
+    font-weight: 600;
+    color: red; }
+  .app-user-html .program-show .program-module {
+    flex: 0 0 68%;
+    margin-left: 4%;
+    font-size: 14px;
+    font-weight: 600;
+    color: red; }
+  .app-user-html .program-show .program-operation {
+    flex: 0 0 15%; }
+  .app-user-html .program-module .app-module {
+    margin-top: 5px;
+    margin-left: 5px; }
+  .app-user-html .absolute-dialog-action {
+    margin-top: 8px; }
+  .app-user-html #add-app-module-dialog .dialog-context-show {
+    display: flex; }
+  .app-user-html .app-module-context {
+    flex: 1;
+    margin-left: 2%; }
+  .app-user-html .search-app-module {
+    display: flex; }
+  .app-user-html #search-module-name {
+    flex: 1;
+    margin-left: 2%; }
+  .app-user-html .search-app-module {
+    margin-left: 2%; }
+  .app-user-html .search-app-module .control-label {
+    line-height: 29px; }
+  .app-user-html .search-app-module-show {
+    margin-top: 8px; }
+  .app-user-html .module-tag {
+    margin-left: 5px;
+    margin-top: 5px; }
+  .app-user-html #app-user-table {
+    margin-top: 8px; }
+  .app-user-html .table {
+    margin-top: 8px; }
+
+.announcement-push-html {
+  padding: 8px; }
+  .announcement-push-html .table {
+    margin-top: 8px; }
+  .announcement-push-html .scheme-choose-input {
+    display: flex;
+    flex-direction: row; }
+  .announcement-push-html .scheme-choose-input .form-group {
+    margin-left: 1%; }
+
+#configure-manage-html {
+  display: flex;
+  width: 98%;
+  padding: 8px; }
+  #configure-manage-html .qq-manage {
+    flex: 1; }
+  #configure-manage-html .plan-manage {
+    flex: 1;
+    margin-left: 1%; }
+  #configure-manage-html .table {
+    margin-top: 5px; }
+  #configure-manage-html .title-word {
+    width: 12%; }
+  #configure-manage-html #plan-editor-dialog .table .form-control {
+    height: 30px !important; }
+  #configure-manage-html #plan-editor-dialog .form-horizontal {
+    margin-top: 6px; }
+
 /*# sourceMappingURL=header.css.map */

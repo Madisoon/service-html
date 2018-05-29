@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         getAllPostInfo();
     });
     getAllPostInfo();
-
+    
     function getAllPostInfo() {
         api.information.infoManualShow.getInforPost("", sortType, function (rep) {
             if (rep.result === 0) {
@@ -33,11 +33,15 @@ define(function (require, exports, module) {
                 var dom = [];
                 for (var i = 0; i < dataInforPostLen; i++) {
                     var informationContent = [];
-                    informationContent.push("标题：" + dataInforPost[i].infor_title);
-                    if (dataInforPost[i].infor_context.length > 201) {
-                        informationContent.push("内容：" + dataInforPost[i].infor_context.substring(0, 50));
+                    if (dataInforPost[i].infor_title.length > 31) {
+                        informationContent.push("标题：" + dataInforPost[i].infor_title.substring(0, 30).replace(/\"/g, ""));
                     } else {
-                        informationContent.push("内容：" + dataInforPost[i].infor_context);
+                        informationContent.push("标题：" + dataInforPost[i].infor_title.replace(/\"/g, ""));
+                    }
+                    if (dataInforPost[i].infor_context.length > 201) {
+                        informationContent.push("内容：" + dataInforPost[i].infor_context.substring(0, 50).replace(/\"/g, ""));
+                    } else {
+                        informationContent.push("内容：" + dataInforPost[i].infor_context.replace(/\"/g, ""));
                     }
                     informationContent.push("链接：\n" + dataInforPost[i].infor_link);
                     informationContent.push("站点：" + dataInforPost[i].infor_site);
@@ -62,7 +66,7 @@ define(function (require, exports, module) {
                         default:
                             numberType = "错误反馈";
                             break;
-
+                        
                     }
                     dom.push('<div class="info-type word">' + numberType + '</div>');
                     dom.push('<div class="info-get word">' + dataInforPost[i].infor_get_people + '-' + dataInforPost[i].get_remark + '</div>');
@@ -75,7 +79,7 @@ define(function (require, exports, module) {
                 $('.info-show-context').empty();
                 $('.info-show-context').append(dom.join(''));
                 var clipboard = new Clipboard('.btn-primary');
-
+                
                 $('.btn-primary').click(function () {
                     $('.btn-primary').parent().parent().removeClass('active');
                     $(this).parent().parent().addClass('active');

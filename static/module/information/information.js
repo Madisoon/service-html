@@ -386,22 +386,20 @@ define(function (require, exports, module) {
         searchInfoData = infoChooseData;
         tableStart();
         //信息所属于的标签
-        /*
-         $('#all-infor').bootstrapTable('destroy');
-         ;*/
-
     });
 
     $('.infor-write').change(function () {
         var contactValue = $('.form-control.infor-write').val();
-        //标题
+        // 标题
         $('.form-control.infor-title').val(contactValue.substring(contactValue.indexOf('标题:') + 3, contactValue.indexOf('内容:')));
-        //内容
+        // 内容
         $('.form-control.infor-context').val(contactValue.substring(contactValue.indexOf('内容:') + 3, contactValue.indexOf('链接:')).trim());
-        //链接
+        // 链接
         $('.form-control.infor-link').val(contactValue.substring(contactValue.indexOf('链接:') + 3, contactValue.indexOf('来源:')));
-        //站点
-        $('.form-control.infor-site').val(contactValue.substring(contactValue.indexOf('站点:') + 3));
+        // 站点
+        $('.form-control.infor-site').val(contactValue.substring(contactValue.indexOf('站点:') + 3, contactValue.indexOf('作者:')));
+        // 作者
+        $('.form-control.infor-author').val(contactValue.substring(contactValue.indexOf('作者:') + 3));
         $('input[name=info-resource][value=' + contactValue.substring(contactValue.indexOf('来源:') + 3, contactValue.indexOf('属性:')).trim() + ']').prop('checked', true);
     });
 
@@ -418,6 +416,7 @@ define(function (require, exports, module) {
         inforData.infor_grade = $('input[name=grade-radio]:checked').val();
         inforData.infor_link = $('.form-control.infor-link').val();
         inforData.infor_site = $('.form-control.infor-site').val();
+        inforData.infor_author = $('.form-control.infor-author').val();
         inforData.infor_source = $('input[name=info-resource]:checked').val();
         inforData.infor_creater = sysTem.user.user_loginname;
         var tagIds = [];
@@ -520,7 +519,7 @@ define(function (require, exports, module) {
             pagination: true,
             paginationHAlign: 'left',
             paginationDetailHAlign: 'right',
-            onDblClickRow: function (row) {
+            /*onDblClickRow: function (row) {
                 infoId = row.id;
                 infoType = false;
                 ADDINFOR = layer.open({
@@ -530,7 +529,7 @@ define(function (require, exports, module) {
                     content: $('#add-infor')
                 });
                 getSetFormValue(row, false);
-            },
+            },*/
             onLoadSuccess: function (data) {
             }
         });
@@ -629,6 +628,7 @@ define(function (require, exports, module) {
             $('input[name=grade-radio][value = ' + 3 + ']').prop('checked', true);
             $('.form-control.infor-link').val("");
             $('.form-control.infor-site').val("");
+            $('.form-control.infor-author').val("");
             $('.tag').empty();
             $('.my-tag-show .label').removeClass('label-primary');
             $('.my-tag-show .label').addClass('label-danger');

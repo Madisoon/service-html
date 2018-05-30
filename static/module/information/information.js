@@ -37,15 +37,15 @@ define(function (require, exports, module) {
             })
         }
     });
-
+    
     $('#contact-info-time').focus(function () {
         $('#choose-time-section').stop().slideDown();
     });
-
+    
     $('#remove-choose-time').unbind('click').click(function () {
         $('#choose-time-section').stop().slideUp();
     });
-
+    
     $('#sure-choose-time').unbind('click').click(function () {
         var startTime = $('#choose-start-time').val();
         var endTime = $('#choose-end-time').val();
@@ -72,8 +72,8 @@ define(function (require, exports, module) {
             content: $('#add-infor')
         });
     });
-
-
+    
+    
     //选择额外的标签
     $('#add-other-tag').unbind('click').click(function () {
         CHOOSETAG = layer.open({
@@ -87,14 +87,14 @@ define(function (require, exports, module) {
             }
         });
     });
-
+    
     //弹出框取消
     $('#cancel-btn').unbind('click').click(function () {
         $('.form-control.infor-write').val("");
         layer.close(ADDINFOR);
     });
-
-
+    
+    
     $('#contact-info-tag').focus(function () {
         searchTagDialog = layer.open({
             title: '标 签 选 择（额 外 标 签）',
@@ -107,7 +107,7 @@ define(function (require, exports, module) {
             }
         });
     });
-
+    
     $('#delete-infor-btn').unbind('click').click(function () {
         var dataInfo = $('#all-infor').bootstrapTable('getSelections', null);
         var dataInfoLen = dataInfo.length;
@@ -134,9 +134,9 @@ define(function (require, exports, module) {
             });
         }
     });
-
+    
     //信息表的主要内容
-
+    
     $('#choose-tag-post-btn').unbind('click').click(function () {
         layer.close(searchTagDialog);
         var searchTagIdTemporary = [];
@@ -147,7 +147,7 @@ define(function (require, exports, module) {
         for (var i = 0; i < tagDataIdLen; i++) {
             searchTagIdTemporary.push(tagDataId[i]);
         }
-
+        
         var tagDataLen = tagData.length;
         for (var i = 0; i < tagDataLen; i++) {
             dom.push(tagData[i].name);
@@ -155,8 +155,8 @@ define(function (require, exports, module) {
         $('#contact-info-tag').val(dom.join('|'));
         searchTagId = searchTagIdTemporary;
     });
-
-
+    
+    
     api.tag.personTag.getMyTag(sysTem.user.user_loginname, function (rep) {
         var myTag = rep.data;
         var myTagLen = rep.data.length;
@@ -195,8 +195,8 @@ define(function (require, exports, module) {
             }
         });
     });
-
-
+    
+    
     //弹出框提交事件
     $('#post-btn').unbind('click').click(function () {
         var inforData = getFormValue();
@@ -245,11 +245,11 @@ define(function (require, exports, module) {
                     }
                 });
             }
-
+            
         }
-
+        
     });
-
+    
     //筛选框点击事件
     $('#choose-infor-btn').unbind('click').click(function () {
         $('.infor-search').stop().slideToggle();
@@ -274,7 +274,7 @@ define(function (require, exports, module) {
             });
         }
     });
-
+    
     $('#choose-contact-customer-btn').unbind('click').click(function () {
         customerChooseType = 0;
         HANDMOVEMENT = layer.open({
@@ -284,7 +284,7 @@ define(function (require, exports, module) {
             content: $('#scheme-choose-dialog')
         });
     });
-
+    
     $('.export-infor-btn').click(function () {
         var infoChooseData = {};
         customerName = $('#contact-info-customer').val();
@@ -316,10 +316,10 @@ define(function (require, exports, module) {
             } else {
                 window.open('http://118.178.237.219:8080/dummyPath/' + filePath);
             }
-
+            
         });
     });
-
+    
     $('#post-scheme-btn').unbind('click').click(function () {
         if (customerChooseType == 0) {
             layer.close(HANDMOVEMENT);
@@ -347,7 +347,7 @@ define(function (require, exports, module) {
     $('#cancel-scheme-btn').unbind('click').click(function () {
         layer.close(HANDMOVEMENT);
     });
-
+    
     //确定筛选
     $('#choose-infor').unbind('click').click(function () {
         var infoChooseData = {};
@@ -387,7 +387,7 @@ define(function (require, exports, module) {
         tableStart();
         //信息所属于的标签
     });
-
+    
     $('.infor-write').change(function () {
         var contactValue = $('.form-control.infor-write').val();
         // 标题
@@ -396,13 +396,20 @@ define(function (require, exports, module) {
         $('.form-control.infor-context').val(contactValue.substring(contactValue.indexOf('内容:') + 3, contactValue.indexOf('链接:')).trim());
         // 链接
         $('.form-control.infor-link').val(contactValue.substring(contactValue.indexOf('链接:') + 3, contactValue.indexOf('来源:')));
-        // 站点
-        $('.form-control.infor-site').val(contactValue.substring(contactValue.indexOf('站点:') + 3, contactValue.indexOf('作者:')));
-        // 作者
-        $('.form-control.infor-author').val(contactValue.substring(contactValue.indexOf('作者:') + 3));
+        if (contactValue.indexOf('作者:') === -1) {
+            // 没有出现作者
+            // 站点
+            $('.form-control.infor-site').val(contactValue.substring(contactValue.indexOf('站点:') + 3));
+        } else {
+            // 出现了作者
+            // 站点
+            $('.form-control.infor-site').val(contactValue.substring(contactValue.indexOf('站点:') + 3, contactValue.indexOf('作者:')));
+            // 作者
+            $('.form-control.infor-author').val(contactValue.substring(contactValue.indexOf('作者:') + 3));
+        }
         $('input[name=info-resource][value=' + contactValue.substring(contactValue.indexOf('来源:') + 3, contactValue.indexOf('属性:')).trim() + ']').prop('checked', true);
     });
-
+    
     /**
      * 获取筛选表单的值
      * @returns {{}}
@@ -427,9 +434,9 @@ define(function (require, exports, module) {
         allData.inforTag = tagIds;
         return allData;
     }
-
+    
     tableStart();
-
+    
     /**
      * 表格初始化
      */
@@ -444,7 +451,7 @@ define(function (require, exports, module) {
                 width: 200,
                 formatter: function (value, row, index) {
                     if (value.length > 25) {
-                        return value.substring(0, 25)+"...";
+                        return value.substring(0, 25) + "...";
                     } else {
                         return value;
                     }
@@ -455,7 +462,7 @@ define(function (require, exports, module) {
                 width: 500,
                 formatter: function (value, row, index) {
                     if (value.length > 75) {
-                        return value.substring(0, 75)+"...";
+                        return value.substring(0, 75) + "...";
                     } else {
                         return value;
                     }
@@ -469,7 +476,7 @@ define(function (require, exports, module) {
                     } else {
                         return value.substring(0, 6) + "......";
                     }
-
+                    
                 }
             }, {
                 field: 'infor_type',
@@ -534,11 +541,11 @@ define(function (require, exports, module) {
             }
         });
     }
-
+    
     $('#tag-cancel-btn').unbind('click').click(function () {
         layer.close(CHOOSETAG);
     });
-
+    
     $('#tag-post-btn').unbind('click').click(function () {
         layer.close(CHOOSETAG);
         var tagData = tagShow.tagOperation.getTreeValue(true, 'tag-tree');
@@ -590,7 +597,7 @@ define(function (require, exports, module) {
         zNodesScheme = rep.data;
         $.fn.zTree.init($("#scheme-area-tree"), settingScheme, zNodesScheme);
     });
-
+    
     function onClickCallBackScheme(event, treeId, treeNode) {
         var treeObj = $.fn.zTree.getZTreeObj("scheme-area-tree");
         var nodes = treeObj.transformToArray(treeNode);
@@ -615,7 +622,7 @@ define(function (require, exports, module) {
             $('.scheme-info').append(schemeDom.join(''));
         });
     };
-
+    
     function getSetFormValue(row, flag) {
         tagShow.tagOperation.writeTagData(false, '', 'tag-tree');
         if (flag) {
@@ -663,7 +670,7 @@ define(function (require, exports, module) {
             $('.tag').append(dom.join(''));
         }
     }
-
+    
     api.tag.tagShow.getChildTag(function (rep) {
         var tagData = rep.data;
         var tagLen = tagData.length;
@@ -683,7 +690,7 @@ define(function (require, exports, module) {
             $('.tag').append('<span class="label other-tag label-warning span-icon-cursor" tag-id="' + $(this).val() + '">' + $(this).text() + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-remove"></span></span>');
         })
     });
-
+    
     $('.tag', 'click', '.label', function () {
         $(this).addClass('animated zoomOut');
         var tagIdTop = $(this).attr("tag-id");

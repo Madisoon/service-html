@@ -639,12 +639,15 @@ textarea::-moz-placeholder { /* Internet Explorer 10+ */
 #terrace-module-html {
   display: flex;
   width: 98%;
+  height: 99%;
   padding: 8px;
   .sorting-tag {
     margin-left: 5px;
   }
   .left-content {
     flex: 1 1 10%;
+    height: 99%;
+    overflow-y: auto;
   }
 
   .right-content {

@@ -81,7 +81,7 @@ define(function (require, exports, module) {
             }
         }
     }());
-
+    
     //系统管理的所有的接口
     var sysManage = (function () {
         var url = baseUrl + "information/";
@@ -91,7 +91,7 @@ define(function (require, exports, module) {
             }
         }
     }());
-
+    
     //用户管理的接口
     var userManage = (function () {
         var url = baseUrl;
@@ -109,8 +109,8 @@ define(function (require, exports, module) {
             }
         }
     }());
-
-
+    
+    
     //系统相关的所有的接口
     var system;
     //用户管理
@@ -251,7 +251,7 @@ define(function (require, exports, module) {
             }
         }
     }());
-
+    
     //推送功能的接口
     var movement;
     //管理配置
@@ -511,8 +511,8 @@ define(function (require, exports, module) {
             }
         }
     }());
-
-
+    
+    
     //所有信息接口
     var information;
     //信息展示
@@ -587,7 +587,7 @@ define(function (require, exports, module) {
             }
         }
     }());
-
+    
     var tag;
     tag = (function () {
         var url = baseUrl;
@@ -629,10 +629,10 @@ define(function (require, exports, module) {
                     getDataWay(url + "deleteMyTag", {'userLoginName': userLoginName, 'id': id}, success);
                 }
             }
-
+            
         }
     }());
-
+    
     var app = (function () {
         var url = baseUrl;
         return {

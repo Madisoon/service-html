@@ -453,11 +453,14 @@ textarea::-moz-placeholder {
 #terrace-module-html {
   display: flex;
   width: 98%;
+  height: 99%;
   padding: 8px; }
   #terrace-module-html .sorting-tag {
     margin-left: 5px; }
   #terrace-module-html .left-content {
-    flex: 1 1 10%; }
+    flex: 1 1 10%;
+    height: 99%;
+    overflow-y: auto; }
   #terrace-module-html .right-content {
     flex: 1 1 88%;
     margin-left: 2%; }

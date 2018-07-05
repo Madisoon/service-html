@@ -6,6 +6,7 @@ define(function (require, exports, module) {
     var api = require('../../common/api');
     var maxId = 0;
     getMaxId();
+    
     function getMaxId() {
         api.tag.tagShow.getIdMax(function (rep) {
             if (rep.result > 0) {
@@ -13,10 +14,10 @@ define(function (require, exports, module) {
             } else {
                 maxId = 1;
             }
-
+            
         });
     }
-
+    
     // 树的初始化设置
     var setting = {
         edit: {
@@ -42,7 +43,7 @@ define(function (require, exports, module) {
                 rootPId: 0
             }
         }
-
+        
     };
     var zNodes = null;
     var zTree, rMenu;
@@ -52,12 +53,13 @@ define(function (require, exports, module) {
         zTree = $.fn.zTree.getZTreeObj("treeDemo");
         rMenu = $("#rMenu");
     });
+    
     // 修改名称成功之后的回调
     function zTreeOnRename(event, treeId, treeNode, isCancel) {
         api.tag.tagShow.updateTag(treeNode.id, treeNode.name, function (rep) {
         });
     }
-
+    
     // 右键菜单点击
     function OnRightClick(event, treeId, treeNode) {
         if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
@@ -68,7 +70,7 @@ define(function (require, exports, module) {
             showRMenu("node", event.clientX, event.clientY);
         }
     }
-
+    
     function showRMenu(type, x, y) {
         $("#rMenu ul").show();
         if (type == "root") {
@@ -81,18 +83,18 @@ define(function (require, exports, module) {
         rMenu.css({"top": y + "px", "left": x + "px", "visibility": "visible"});
         $("body").bind("mousedown", onBodyMouseDown);
     }
-
+    
     function hideRMenu() {
         if (rMenu) rMenu.css({"visibility": "hidden"});
         $("body").unbind("mousedown", onBodyMouseDown);
     }
-
+    
     function onBodyMouseDown(event) {
         if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
             rMenu.css({"visibility": "hidden"});
         }
     }
-
+    
     function addTreeNode() {
         hideRMenu();
         var allParent = [];
@@ -106,7 +108,7 @@ define(function (require, exports, module) {
                 allParent.push(node[i].id)
             }
             newNode = {name: "新增标签", tag_parent: zTree.getSelectedNodes()[0].id, id: maxId};
-
+            
             zTree.addNodes(zTree.getSelectedNodes()[0], newNode);
         } else {
             newNode = {name: "新增标签", tag_parent: 0, id: maxId};
@@ -127,7 +129,7 @@ define(function (require, exports, module) {
             }
         });
     }
-
+    
     function removeTreeNode() {
         hideRMenu();
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
@@ -146,11 +148,11 @@ define(function (require, exports, module) {
             idS.push(nodeId[i].id);
         }
         api.tag.tagShow.deleteTag(idS.join(','), function (rep) {
-
+        
         });
-
+        
     }
-
+    
     function changeName() {
         hideRMenu();
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
@@ -162,16 +164,49 @@ define(function (require, exports, module) {
         }
         zTree.editName(treeNode);
     }
-
+    
     $('#add-tag').unbind('click').click(function () {
         addTreeNode();
     });
-
+    
     $('#update-name').unbind('click').click(function () {
         changeName();
     });
-
+    
     $('#delete-tag').unbind('click').click(function () {
         removeTreeNode();
+    });
+    
+    $('.add-terrace-tag').click(function () {
+        layer.open({
+            title: '标 签 添 加',
+            type: 1,
+            area: ['45%', '60%'], //宽高
+            content: $('#add-terrace-dialog')
+        });
+    });
+    
+    $('#terrace-add-btn').click(function () {
+        var tagName = $('.tag-name').val();
+        var tagId = $('.tag-id').val();
+        var tagParent = $('.tag-parent').val();
+        var newNode = {name: tagName, tag_parent: tagParent, id: tagId};
+        var allParent = [];
+        api.tag.tagShow.insertTag(JSON.stringify(newNode), JSON.stringify(allParent), function (rep) {
+            layer.closeAll();
+            $('.tag-name').val('');
+            $('.tag-id').val('');
+            if (rep.result > 0) {
+                layer.msg(' 添 加 成 功 ！', {
+                    icon: 1,
+                    time: 1200,
+                });
+            } else {
+                layer.msg(' 添 加 失 败 ！', {
+                    icon: 2,
+                    time: 1200,
+                });
+            }
+        });
     });
 });
